@@ -1,3 +1,11 @@
+## Task Description
+* [x] Named Entity Recognition (NER)
+* [x] Chinese Word Segmentation (CWS)
+* [x] Part-of-Speech (POS)
+* [-] Chunking
+* [-] Aspect Sentiment Classification
+
+
 ## Environment Setup
 
 1) download two missing directories `data` and `preComputed`

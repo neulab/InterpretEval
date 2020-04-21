@@ -1,0 +1,191 @@
+<html>
+  <head>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+
+
+
+<script type="text/javascript">
+function myFunction(elem) {
+  var x = document.getElementById(elem);
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    //$("#"+elem+ " img").css({"width":"400px","height":"200px"})
+  } else {
+    x.style.display = "none";
+    //$("#"+elem+ " img").css({"width":"150px","height":"100px"})
+  }
+}
+</script>
+
+
+
+
+<script type="text/javascript">
+  $(function(){
+    $('img').mouseenter(function(){
+      var wValue=3 * $(this).width();
+      var hValue=3 * $(this).height();    
+      $(this).stop().animate({width: wValue,
+              height: hValue,
+              left:("-"+(0.5 * $(this).width())/2),
+              top:("-"+(0.5 * $(this).height())/2)}, 1000);
+    }).mouseleave(function(){
+      $(this).stop().animate({width:150,
+                     height: 130,
+                     left:"0px",
+                     top:"0px"}, 1000 );
+    });
+  });
+</script>
+
+
+    <h3>1. Holistic Result</h3>
+
+
+    <div class='table_self_diagnosis'>
+ <div class='tr_title'><div class='td'><a href="#" data-toggle="tooltip" title="different types of models">Model</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="">ptb2</a></div>
+</div>
+ <div class='tr_plain'><div class='td'><a href="#" data-toggle="tooltip" title="">sent_long</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="">93.67</a></div>
+</div>
+ <div class='tr_plain'><div class='td'><a href="#" data-toggle="tooltip" title="">sent_1</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="">94.13</a></div>
+</div>
+</div>
+
+    <HR style="border:1 dashed #987cb9" width="100%" color="gray" SIZE=2>  
+    <!------------------------------------------------------------------------- -->
+
+    <h3>2. Break-down Performance</h3>
+
+    <div class='table_breakdown'>
+<li><b>Model Setting:</b> <i>sent_long</i></li>
+<h5> Dataset: <i> ptb2</i>
+<div class='table_breakdown'>
+ <div class='tr_title'><div class='td'><a href="#" data-toggle="tooltip" title="token-level label ambiguity">MF-tt</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="token-level frequency in training set">F-tok</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="the length of sentence">R-sLen</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="oov density in a given sentence">R-oov</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="span-level label">R-tag</a></div>
+</div>
+ <div class='tr'><div class='td'><img src=./pos-fig/sent_long-sent_1/ptb2-sent_long-breakdown-MF-tt.png alt="image" /><button onclick="myFunction(22354676)">Click Me</button>
+<div id="22354676" style="display: none;">0:(0,) 1:(0,0.5) 2:(0.5,0.999) 3:(1,)</div>
+</div>
+<div class='td'><img src=./pos-fig/sent_long-sent_1/ptb2-sent_long-breakdown-F-tok.png alt="image" /><button onclick="myFunction(11530121)">Click Me</button>
+<div id="11530121" style="display: none;">0:(0,) 1:(0,0.0052) 2:(0.0052,0.11) 3:(0.11,1)</div>
+</div>
+<div class='td'><img src=./pos-fig/sent_long-sent_1/ptb2-sent_long-breakdown-R-sLen.png alt="image" /><button onclick="myFunction(71001973)">Click Me</button>
+<div id="71001973" style="display: none;">0:(1,21) 1:(21,29) 2:(29,38) 3:(38,118)</div>
+</div>
+<div class='td'><img src=./pos-fig/sent_long-sent_1/ptb2-sent_long-breakdown-R-oov.png alt="image" /><button onclick="myFunction(5486568)">Click Me</button>
+<div id="5486568" style="display: none;">0:(0,) 1:(0,0.0333) 2:(0.0333,0.0556) 3:(0.0556,1)</div>
+</div>
+<div class='td'><img src=./pos-fig/sent_long-sent_1/ptb2-sent_long-breakdown-R-tag.png alt="image" /><button onclick="myFunction(16944956)">Click Me</button>
+<div id="16944956" style="display: none;">0:('dt',) 1:('in',) 2:('nn',) 3:('nnp',)</div>
+</div>
+</div>
+</div></h5>
+<li><b>Model Setting:</b> <i>sent_1</i></li>
+<h5> Dataset: <i> ptb2</i>
+<div class='table_breakdown'>
+ <div class='tr_title'><div class='td'><a href="#" data-toggle="tooltip" title="token-level label ambiguity">MF-tt</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="token-level frequency in training set">F-tok</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="the length of sentence">R-sLen</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="oov density in a given sentence">R-oov</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="span-level label">R-tag</a></div>
+</div>
+ <div class='tr'><div class='td'><img src=./pos-fig/sent_long-sent_1/ptb2-sent_1-breakdown-MF-tt.png alt="image" /><button onclick="myFunction(75372026)">Click Me</button>
+<div id="75372026" style="display: none;">0:(0,) 1:(0,0.5) 2:(0.5,0.999) 3:(1,)</div>
+</div>
+<div class='td'><img src=./pos-fig/sent_long-sent_1/ptb2-sent_1-breakdown-F-tok.png alt="image" /><button onclick="myFunction(50488704)">Click Me</button>
+<div id="50488704" style="display: none;">0:(0,) 1:(0,0.0052) 2:(0.0052,0.11) 3:(0.11,1)</div>
+</div>
+<div class='td'><img src=./pos-fig/sent_long-sent_1/ptb2-sent_1-breakdown-R-sLen.png alt="image" /><button onclick="myFunction(2938071)">Click Me</button>
+<div id="2938071" style="display: none;">0:(1,21) 1:(21,29) 2:(29,38) 3:(38,118)</div>
+</div>
+<div class='td'><img src=./pos-fig/sent_long-sent_1/ptb2-sent_1-breakdown-R-oov.png alt="image" /><button onclick="myFunction(89230111)">Click Me</button>
+<div id="89230111" style="display: none;">0:(0,) 1:(0,0.0333) 2:(0.0333,0.0556) 3:(0.0556,1)</div>
+</div>
+<div class='td'><img src=./pos-fig/sent_long-sent_1/ptb2-sent_1-breakdown-R-tag.png alt="image" /><button onclick="myFunction(86238830)">Click Me</button>
+<div id="86238830" style="display: none;">0:('dt',) 1:('in',) 2:('nn',) 3:('nnp',)</div>
+</div>
+</div>
+</div>
+
+
+
+
+    <HR style="border:1 dashed #987cb9" width="100%" color="gray" SIZE=2>  
+    <!------------------------------------------------------------------------- -->
+
+    <!------------------------------------------------------------------------- -->
+    <h3>3. Self-diagnosis </h3>
+
+    <li><b>Model Setting:</b> <i>sent_long</i></li>
+<div class='table_self_diagnosis'>
+ <div class='tr_title'><div class='td'><a href="#" data-toggle="tooltip" title="">ptb2</a></div>
+</div>
+ <div class='tr'><div class='td'><a href="#" data-toggle="tooltip" title=""><img src=./pos-fig/sent_long-sent_1/ptb2-sent_long-selfdiag.png alt="image" /></a></div>
+</div>
+</div>
+<br></br><li><b>Model Setting:</b> <i>sent_1</i></li>
+<div class='table_self_diagnosis'>
+ <div class='tr_title'><div class='td'><a href="#" data-toggle="tooltip" title="">ptb2</a></div>
+</div>
+ <div class='tr'><div class='td'><a href="#" data-toggle="tooltip" title=""><img src=./pos-fig/sent_long-sent_1/ptb2-sent_1-selfdiag.png alt="image" /></a></div>
+</div>
+</div>
+
+
+
+    <HR style="border:1 dashed #987cb9" width="100%" color="gray" SIZE=2>  
+    <!------------------------------------------------------------------------- -->
+
+
+    <h3>4. Aided-diagnosis </h3>
+    <li><b>Model Setting:</b> <i>sent_long - sent_1</i></li>
+    <div class='table_aided_diagnosis'>
+ <div class='tr_title'><div class='td'><a href="#" data-toggle="tooltip" title="">ptb2</a></div>
+</div>
+ <div class='tr'><div class='td'><a href="#" data-toggle="tooltip" title=""><img src=./pos-fig/sent_long-sent_1/ptb2-sent_long_sent_1-aideddiag.png alt="image" /></a></div>
+</div>
+</div>
+
+
+    <HR style="border:1 dashed #987cb9" width="100%" color="gray" SIZE=2>  
+    <!------------------------------------------------------------------------- -->
+
+    <h3>5. Heatmap </h3>
+    <li><b>Model Setting:</b> <i>sent_long - sent_1</i></li>
+    <div class='table_aided_diagnosis'>
+ <div class='tr_title'><div class='td'><a href="#" data-toggle="tooltip" title="">ptb2</a></div>
+</div>
+ <div class='tr'><div class='td'><a href="#" data-toggle="tooltip" title=""><img src=./pos-fig/sent_long-sent_1/ptb2-sent_long_sent_1-heatmap.png alt="image" /></a></div>
+</div>
+</div>
+
+
+
+
+
+  </body>
+</html>
+
+
+
+
+

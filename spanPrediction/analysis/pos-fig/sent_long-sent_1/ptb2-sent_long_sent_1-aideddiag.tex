@@ -1,0 +1,72 @@
+\documentclass[11pt]{standalone}
+
+\usepackage{lmodern}	% font definition
+\usepackage{amsmath}	% math fonts
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{pgfplots}
+
+\usepackage{pgfplots}
+\usepackage{xcolor}
+\usetikzlibrary{positioning,bayesnet}
+\definecolor{brinkpink}{rgb}{0.98, 0.38, 0.5}
+\definecolor{aogreen}{rgb}{0.0, 0.5, 0.0}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing} % noisy shapes
+\usetikzlibrary{fit}					% fitting shapes to coordinates
+\usetikzlibrary{backgrounds}	% drawing the background after the foreground
+\pgfplotsset{compat=newest}% <-- moves axis labels near ticklabels (respects tick label widths)
+
+\begin{document}
+  \pgfplotsset{every tick label/.append style={font=\normalsize}}
+  \pgfplotsset{every axis label/.append style={font=\normalsize}}
+\begin{tikzpicture}
+  \centering
+  \begin{axis}[%ybar=1.0pt,
+    ybar stacked,
+    height=11.600000000000001cm,
+    %width=14.5cm, % 12->9,  9->6.93,  8-> 6
+    width=14.5cm, % 12->9,  9->6.93,  8-> 6
+    bar width=1.1cm,
+    xmin=0.4,
+    xmax=5,
+    ymin=-0.552,
+    ymax=0.6839999999999999,
+    enlarge y limits={upper,value=0.15},
+    axis lines*=left,
+    legend style={at={(0.5,-0.25)},anchor=north,legend columns=-1,
+    /tikz/every even column/.append style={column sep=0.2cm}},
+    %xticklabels={\textcolor{brinkpink}{S}-\textcolor{aogreen}{L},\textcolor{brinkpink}{M}-\textcolor{aogreen}{S},\textcolor{brinkpink}{L}-\textcolor{aogreen}{M},\textcolor{brinkpink}{S}-\textcolor{aogreen}{S},\textcolor{brinkpink}{M}-\textcolor{aogreen}{M},\textcolor{brinkpink}{L}-\textcolor{aogreen}{L},\textcolor{brinkpink}{S}-\textcolor{aogreen}{S},\textcolor{brinkpink}{M}-\textcolor{aogreen}{M}},
+    xticklabels={MF-tt \\ \textcolor{brinkpink}{(0, .5]} \\ \textcolor{cyan}{0}, F-tok \\ \textcolor{brinkpink}{(0, .0052]} \\ \textcolor{cyan}{0}, R-sLen \\ \textcolor{brinkpink}{(21, 29]} \\ \textcolor{cyan}{(38, 118]}, R-oov \\ \textcolor{brinkpink}{(0, .0333]} \\ \textcolor{cyan}{(.0333, .0556]}},
+    xtick=data,
+    xmajorgrids=true,
+    ymajorgrids=true,
+    zmajorgrids=true,
+    grid style=dashed,
+    xticklabel style={
+        inner sep=1pt,
+	align=center,
+        %rotate=90,
+        %anchor=near xticklabel,
+    },
+    ]
+    %\addplot [draw=aogreen!80,fill=aogreen!20] table[x=id,y=y]{
+    \addplot [draw=cyan!80,fill=cyan!20] table[x=id,y=y]{
+    id  y
+    	1	-0.24
+	2	-0.46
+	3	-0.08
+	4	-0.15
+    };
+    \addplot [draw=brinkpink!80,fill=brinkpink!20] table[x=id,y=y]{
+    id  y
+    	1	0.58
+	2	0.13
+	3	0.09
+	4	0.08
+    };
+  \end{axis}
+\end{tikzpicture}
+
+\end{document}
+

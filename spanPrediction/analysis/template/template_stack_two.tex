@@ -1,0 +1,65 @@
+\documentclass[11pt]{standalone}
+
+\usepackage{lmodern}	% font definition
+\usepackage{amsmath}	% math fonts
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{pgfplots}
+
+\usepackage{pgfplots}
+\usepackage{xcolor}
+\usetikzlibrary{positioning,bayesnet}
+\definecolor{brinkpink}{rgb}{0.98, 0.38, 0.5}
+\definecolor{aogreen}{rgb}{0.0, 0.5, 0.0}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing} % noisy shapes
+\usetikzlibrary{fit}					% fitting shapes to coordinates
+\usetikzlibrary{backgrounds}	% drawing the background after the foreground
+\pgfplotsset{compat=newest}% <-- moves axis labels near ticklabels (respects tick label widths)
+
+\begin{document}
+  \pgfplotsset{every tick label/.append style={font=\normalsize}}
+  \pgfplotsset{every axis label/.append style={font=\normalsize}}
+\begin{tikzpicture}
+  \centering
+  \begin{axis}[%ybar=1.0pt,
+    ybar stacked,
+    height=__placeholder_heightcm,
+    %width=__placeholder_widthcm, % 12->9,  9->6.93,  8-> 6
+    width=__placeholder_widthcm, % 12->9,  9->6.93,  8-> 6
+    bar width=1.1cm,
+    xmin=0.4,
+    xmax=__placeholder_xmax,
+    ymin=__placeholder_ymin,
+    ymax=__placeholder_ymax,
+    enlarge y limits={upper,value=0.15},
+    axis lines*=left,
+    legend style={at={(0.5,-0.25)},anchor=north,legend columns=-1,
+    /tikz/every even column/.append style={column sep=0.2cm}},
+    %xticklabels={\textcolor{brinkpink}{S}-\textcolor{aogreen}{L},\textcolor{brinkpink}{M}-\textcolor{aogreen}{S},\textcolor{brinkpink}{L}-\textcolor{aogreen}{M},\textcolor{brinkpink}{S}-\textcolor{aogreen}{S},\textcolor{brinkpink}{M}-\textcolor{aogreen}{M},\textcolor{brinkpink}{L}-\textcolor{aogreen}{L},\textcolor{brinkpink}{S}-\textcolor{aogreen}{S},\textcolor{brinkpink}{M}-\textcolor{aogreen}{M}},
+    xticklabels={__placeholder_xticklabels},
+    xtick=data,
+    xmajorgrids=true,
+    ymajorgrids=true,
+    zmajorgrids=true,
+    grid style=dashed,
+    xticklabel style={
+        inner sep=1pt,
+	align=center,
+        %rotate=90,
+        %anchor=near xticklabel,
+    },
+    ]
+    %\addplot [draw=aogreen!80,fill=aogreen!20] table[x=id,y=y]{
+    \addplot [draw=cyan!80,fill=cyan!20] table[x=id,y=y]{
+    id  y
+    __placeholder_plot1
+    };
+    \addplot [draw=brinkpink!80,fill=brinkpink!20] table[x=id,y=y]{
+    id  y
+    __placeholder_plot2
+    };
+  \end{axis}
+\end{tikzpicture}
+
+\end{document}

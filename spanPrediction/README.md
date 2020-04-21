@@ -1,4 +1,7 @@
-#### 1. tensor-evaluation-demo-new can generate the html source code in one step, when run the "./run.sh".
-#### 2. Before running the code, you need to change the path of dataset on "tensorEvaluation.py". The "train" and "test" path given as follow:
-	1) fn_train = 'data/NER/' + corpus_type + '/train.txt'
-	2) fn_test = 'data/NER/' + corpus_type + '/test.txt'
+## Environment Setup
+
+1) download two missing directories `data` and `preComputed`
+* [data](https://drive.google.com/file/d/1UzlBSNNrrAVQv_LwziRmY9qzVotbWZgo/view?usp=sharing)
+* [preComputed](https://drive.google.com/file/d/1HAVDt1eXj2iUQBPv995ASLKo1IhhKlOX/view?usp=sharing)
+
+2) sudo apt-get install texlive-full

@@ -3,8 +3,8 @@
 * [x] Chinese Word Segmentation (CWS)
 * [x] Part-of-Speech (POS)
 * [x] Chunking
+* [ ] Text Classification
 * [ ] Aspect Sentiment Classification
-
 
 ## Environment Setup
 

@@ -2,7 +2,7 @@
 * [x] Named Entity Recognition (NER)
 * [x] Chinese Word Segmentation (CWS)
 * [x] Part-of-Speech (POS)
-* [ ] Chunking
+* [x] Chunking
 * [ ] Aspect Sentiment Classification
 
 

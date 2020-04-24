@@ -13,4 +13,19 @@ Here are some generated results of three preliminary evaluation systems: Named E
 
 
 
+
+## Setup
+
+* python3.7
+* install texlive 
+```
+sudo apt-get install texlive-full
+```
+* install
+```
+sudo apt install poppler-utils
+```
+
+
+
 ## Still In Progress ...

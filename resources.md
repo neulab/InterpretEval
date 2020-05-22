@@ -1,6 +1,10 @@
 # Related Resources
 
 
+## Meeting Notes
+* [Google Docs](https://docs.google.com/document/d/1Q7A6p1-8AHyFPuN0UY975UkFpyLDMNtkwrkKnNf9n9U/edit)
+
+
 ## Papers
 
 
@@ -23,9 +27,9 @@
 
 
 
-## General4NLP
+## Tool/Github
 * [NLPConcepts](https://github.com/neulab/nn4nlp-concepts)
-
+* [Compare-MT](https://github.com/neulab/compare-mt)
 
 
 

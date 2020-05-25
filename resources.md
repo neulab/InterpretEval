@@ -16,6 +16,7 @@
 #### Metric Regression
 * [Learning to Score System Summaries for Better Content Selection Evaluation](https://www.aclweb.org/anthology/W17-4510.pdf)
 * [Predicting Performance for Natural Language Processing Tasks](https://arxiv.org/pdf/2005.00870.pdf)
+* [Tensor-on-tensor regression](https://arxiv.org/abs/1701.01037)
 
 
 

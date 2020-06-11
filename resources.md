@@ -3,7 +3,7 @@
 
 ## Meeting Notes
 * [Google Docs](https://docs.google.com/document/d/1Q7A6p1-8AHyFPuN0UY975UkFpyLDMNtkwrkKnNf9n9U/edit)
-
+* [Overleaf](https://www.overleaf.com/8757457873ccfqgcsbjccn)
 
 ## Documentation
 

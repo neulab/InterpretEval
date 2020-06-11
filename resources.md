@@ -41,7 +41,7 @@ Factorization for Context-aware Collaborative Filtering](https://xamat.github.io
 ### Confidence Interval/Significant Test
 * [Statistical Significance Tests for Machine Translation Evaluation](https://www.aclweb.org/anthology/W04-3250.pdf)
 * [Better Hypothesis Testing for Statistical Machine Translation: Controlling for Optimizer Instability](https://www.aclweb.org/anthology/P11-2031.pdf)
-
+* [Confidence Interval](http://www.mit.edu/~6.s085/notes/lecture2.pdf)
 
 
 ## Tool/Github

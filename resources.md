@@ -7,6 +7,10 @@
 
 ## Papers
 
+#### Gaussian Process
+
+* [tutorial1](https://www.apps.stat.vt.edu/leman/VTCourses/GPtutorial.pdf)
+
 
 #### Fine-grained Evaluation/Multi-object
 * [compare-mt: A Tool for Holistic Comparison of Language Generation Systems](https://arxiv.org/pdf/1903.07926.pdf)

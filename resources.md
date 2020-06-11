@@ -9,7 +9,7 @@
 
 
 
-#### Gaussian Process
+### Gaussian Process
 
 * [tutorial1](https://www.apps.stat.vt.edu/leman/VTCourses/GPtutorial.pdf)
 
@@ -17,19 +17,19 @@
 ### Tensor (Operation, Decomposition)
 
 
-#### Papers
+### Papers
 * [Multiverse Recommendation: N-dimensional Tensor
 Factorization for Context-aware Collaborative Filtering](https://xamat.github.io/pubs/karatzoglu-recsys-2010.pdf)
 
 
 
 
-#### Fine-grained Evaluation/Multi-object
+### Fine-grained Evaluation/Multi-object
 * [compare-mt: A Tool for Holistic Comparison of Language Generation Systems](https://arxiv.org/pdf/1903.07926.pdf)
 * [Towards Interpretable Multi-dataset Evaluations: A Case Study of Named Entity Recognition](#)
 * [Learning to Translate with Multiple Objectives](http://cs.jhu.edu/~kevinduh/papers/duh12multiobj.pdf)
 
-#### Metric Regression
+### Metric Regression
 * [Learning to Score System Summaries for Better Content Selection Evaluation](https://www.aclweb.org/anthology/W17-4510.pdf)
 * [Predicting Performance for Natural Language Processing Tasks](https://arxiv.org/pdf/2005.00870.pdf)
 * [Tensor-on-tensor regression](https://arxiv.org/abs/1701.01037)
@@ -38,7 +38,7 @@ Factorization for Context-aware Collaborative Filtering](https://xamat.github.io
 
 
 
-#### Confidence Interval/Significant Test
+### Confidence Interval/Significant Test
 * [Statistical Significance Tests for Machine Translation Evaluation](https://www.aclweb.org/anthology/W04-3250.pdf)
 * [Better Hypothesis Testing for Statistical Machine Translation: Controlling for Optimizer Instability](https://www.aclweb.org/anthology/P11-2031.pdf)
 
@@ -49,5 +49,3 @@ Factorization for Context-aware Collaborative Filtering](https://xamat.github.io
 * [Compare-MT](https://github.com/neulab/compare-mt)
 
 
-
-## Tensor

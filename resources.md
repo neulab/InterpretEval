@@ -5,11 +5,23 @@
 * [Google Docs](https://docs.google.com/document/d/1Q7A6p1-8AHyFPuN0UY975UkFpyLDMNtkwrkKnNf9n9U/edit)
 
 
-## Papers
+## Documentation
+
+
 
 #### Gaussian Process
 
 * [tutorial1](https://www.apps.stat.vt.edu/leman/VTCourses/GPtutorial.pdf)
+
+
+### Tensor (Operation, Decomposition)
+
+
+#### Papers
+* [Multiverse Recommendation: N-dimensional Tensor
+Factorization for Context-aware Collaborative Filtering](https://xamat.github.io/pubs/karatzoglu-recsys-2010.pdf)
+
+
 
 
 #### Fine-grained Evaluation/Multi-object

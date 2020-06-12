@@ -8,6 +8,10 @@
 ## Documentation
 
 
+### Calibration
+* [On Calibration of Modern Neural Networks](https://arxiv.org/pdf/1706.04599.pdf)
+* [Predicting Good Probabilities With Supervised Learning](https://www.cs.cornell.edu/~alexn/papers/calibration.icml05.crc.rev3.pdf)
+* [zhihu](https://zhuanlan.zhihu.com/p/101766505?utm_source=wechat_timeline)
 
 ### Gaussian Process
 

@@ -26,6 +26,9 @@ sudo apt-get install texlive-full
 sudo apt install poppler-utils
 ```
 
-
+## how to run the NER-TensorEvaluation-print
+- Unzip `NER-TensorEvaluation-print.zip' and run `run_task_ner_print.sh'. you will get the dictionary with the six evaluation metrics.
+ 
+- You can sample part of the dataset through the method `new_metric()'. (Maybe you can sample data by the output of read_data().)
 
 ## Still In Progress ...

@@ -27,16 +27,16 @@ This project is a by-product of these works:
 ### Attribute definition
 Overall, we have define 8 attributes for the NER task, and 7 attributes for the CWS task.
 
-|              NER            | 			   CWS 			    | 
-|-----------------------------|---------------------------------|
-| Entity Length   		      | Word Length                     | 
-| Sentence Length             | Sentence Length                 | 
-| OOV Density                 | OOV Density                     | 
-| Token Frequency       	  | Character Frequency             | 
-| Entity Frequency            | Word Frequency                  | 
-| Label Consistency of Token  | Label Consistency of Character  | 
-| Label Consistency of Entity | Label Consistency of Word       | 
-| Entity Density			  |                                 |
+| Id |              NER            | 			   CWS 			     | 
+|----|-----------------------------|---------------------------------|
+| 1  | Entity Length   		       | Word Length                     | 
+| 2  | Sentence Length             | Sentence Length                 | 
+| 3  | OOV Density                 | OOV Density                     | 
+| 4  | Token Frequency       	   | Character Frequency             | 
+| 5  | Entity Frequency            | Word Frequency                  | 
+| 6  | Label Consistency of Token  | Label Consistency of Character  | 
+| 7  | Label Consistency of Entity | Label Consistency of Word       | 
+| 8  | Entity Density			   |                                 |
 
 
 The attributes for NER: 

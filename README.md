@@ -11,7 +11,32 @@ by Pengfei Liu, Jinlan Fu, Graham Neubig and other contributors.
 * Performance of many NLP tasks has reached a plateau. What works, and what's next?
 * <strong>Is XX a solved task? What's left?</strong>
 * A good evaluation metric can not only rank different systems but also tell their relative advantages (strengths and weaknesses) of them.
-* Can we upgrade our current `Leaderboard`?
+
+
+
+## Interpretable Evaluation By Bucketing
+
+
+
+
+
+
+## Application
+
+### System Diagnosis
+* Self-diagnosis
+* Aided-diagnosis
+
+
+### Dataset Bias Analysis
+
+
+### Structural Bias Analysis 
+
+
+
+
+### ExplainaBoard: Next Generation of LeaderBoard
 
 
 

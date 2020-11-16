@@ -124,8 +124,22 @@ After running the above command, a web page named `tEval-ner.html` will be gener
 The running process of the Chinese Word Segmentation task is similar.
 
 ```
+## Requirements
+
+-  `python3`
+-  `texlive`
+- `pip3 install -r requirements.txt`
+```
+
+
+```
    Notably, so far, our system only supports limited tasks and datasets, we're extending them currently!
 ```
+
+
+
+
+
 
 Here are some generated results of preliminary evaluation systems: Named Entity Recognition (NER), Chinese Word Segmentation (CWS) and Part-of-Speech (POS).
 * [NER](http://pfliu.com/tensorEvaluation/tEval-ner.html)

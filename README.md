@@ -24,6 +24,10 @@ This project is a by-product of these works:
 
 ## Interpretable Evaluation Methodology
 
+### An example 
+
+
+
 ### Attribute definition
 Overall, we have define 8 attributes for the NER task, and 7 attributes for the CWS task.
 
@@ -43,6 +47,10 @@ Bucketing is an operation that breaks down the holistic performance into differe
 
 ### Breakdown
 Calculate the performance of each bucket.
+
+
+
+
 
 
 

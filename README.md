@@ -57,7 +57,7 @@ by Pengfei Liu, Jinlan Fu, Graham Neubig and other contributors.
 
 
 ### Method 2: Run it Locally
-Give NER task as an example. Run the shell: `./run_task_ner.sh`.
+Give the NER task as an example. Run the shell: `./run_task_ner.sh`.
 
 The shell scripts include the following three aspects:
 

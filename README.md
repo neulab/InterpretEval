@@ -4,12 +4,25 @@
 by Pengfei Liu, Jinlan Fu, Graham Neubig and other contributors.
 
 
+
+
+
+## What's the use of `Interpretable` Evaluation?
+* understand the strengths and weaknesses of a SOTA system
+* which factors of a dataset influence the performance of a task 
+* how different choices of architectures influence one task's performance
+
+
+
 ## A Quick Look
 Here are some generated results of three preliminary evaluation systems: Named Entity Recognition (NER), Chinese Word Segmentation (CWS) and Part-of-Speech (POS).
 * [NER](http://pfliu.com/tensorEvaluation/tEval-ner.html)
 * [CWS](http://pfliu.com/tensorEvaluation/tEval-cws.html)
 * [POS](http://pfliu.com/tensorEvaluation/tEval-pos.html)
 * [Chunk](http://pfliu.com/tensorEvaluation/tEval-chunk.html)
+
+
+
 
 
 

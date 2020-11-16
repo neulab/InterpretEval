@@ -1,0 +1,53 @@
+# Span-level Label consistency
+notation:	eCon
+type:	bucketAttribute_SpecifiedBucketInterval
+setting:	[(0,), (0,0.5), (0.5,0.999), (1,)]
+is_preComputed:	Yes
+
+# Token-level Label consistency
+notation:	tCon
+type:	bucketAttribute_SpecifiedBucketInterval
+setting:	[(0,), (0,0.5), (0.5,0.999), (1,)]
+is_preComputed:	Yes
+
+# Span-level Frequency
+notation:	eFre
+type:	bucketAttribute_SpecifiedBucketValue
+setting:	4	[0,]
+is_preComputed:	Yes
+
+# Token-level Frequency
+notation:	tFre
+type:	bucketAttribute_SpecifiedBucketValue
+setting:	4	[0,]
+is_preComputed:	Yes
+
+# Span (Entity) Length
+notation:	eLen
+type:	bucketAttribute_SpecifiedBucketValue
+setting:	4	[1,2,3]
+is_preComputed:	No
+
+# Sentence Length
+notation:	sLen
+type:	bucketAttribute_SpecifiedBucketValue
+setting:	4	[]
+is_preComputed:	No
+
+# Entity Density
+notation:	eDen
+type:	bucketAttribute_SpecifiedBucketValue
+setting:	4	[]
+is_preComputed:	No
+
+# OOV Density
+notation:	oDen
+type:	bucketAttribute_SpecifiedBucketValue
+setting:	4	[0]
+is_preComputed:	Yes
+
+# Tag
+notation:	tag
+type:	bucketAttribute_DiscreteValue
+setting:	6	1
+is_preComputed:	No

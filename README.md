@@ -11,7 +11,7 @@ This project is supported by two following works:
 
 <br> 
 
-## Final Product: [ExplainaBoard]((http://explainaboard.nlpedia.ai/)) (Updating)
+## Final Product: [ExplainaBoard](http://explainaboard.nlpedia.ai/) (Updating)
 <img src="fig/board.png" width="600">
 
 

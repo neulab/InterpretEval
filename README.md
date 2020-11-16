@@ -25,6 +25,29 @@ This project is a by-product of these works:
 ## Interpretable Evaluation Methodology
 
 ### Attribute definition
+Overall, we have define 8 attributes for the NER task, and 7 attributes for the CWS task.
+
+|              NER            | 			   CWS 			    | 
+|-----------------------------|---------------------------------|
+| Entity Length   		      | Word Length                     | 
+| Sentence Length             | Sentence Length                 | 
+| OOV Density                 | OOV Density                     | 
+| Token Frequency       	  | Character Frequency             | 
+| Entity Frequency            | Word Frequency                  | 
+| Label Consistency of Token  | Label Consistency of Character  | 
+| Label Consistency of Entity | Label Consistency of Word       | 
+| Entity Density			  |                                 |
+
+
+The attributes for NER: 
+1) Entity Length
+2) Sentence Length
+3) OOV Density
+4) Entity Density 
+4) token frequency
+5) entity frequency
+6) label consistency of token
+7) label consistency of entity
 
 ### Attribute value calculation
 

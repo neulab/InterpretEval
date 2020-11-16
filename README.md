@@ -9,7 +9,7 @@ This project is supported by two following works:
 
 * [RethinkCWS: Is Chinese Word Segmentation a Solved Task? (EMNLP-2020)](https://www.aclweb.org/anthology/2020.emnlp-main.457.pdf)
 
-
+<br> 
 
 ## Final Product: [ExplainaBoard]((http://explainaboard.nlpedia.ai/)) (Updating)
 <img src="fig/board.png" width="600">

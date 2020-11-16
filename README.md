@@ -41,14 +41,14 @@ by Pengfei Liu, Jinlan Fu, Graham Neubig and other contributors.
 
 
 
-### Interpreting Your Results?
+## Interpreting Your Results?
 
 
 ### Method 1: Upload your files to  the ``ExplainaBoard`` website
 ### Method 2: Run it Locally
 
 ```
-   Notably, so far, our system only support limiated tasks and datasets, we're extending them currently!
+   Notably, so far, our system only supports limited tasks and datasets, we're extending them currently!
 ```
 
 Here are some generated results of preliminary evaluation systems: Named Entity Recognition (NER), Chinese Word Segmentation (CWS) and Part-of-Speech (POS).

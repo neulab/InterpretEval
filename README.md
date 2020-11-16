@@ -12,7 +12,7 @@ This project is supported by two following works:
 
 
 
-********************************************
+<br><br><br>
 
 
 ## 1. Motivated Questions
@@ -27,7 +27,7 @@ This project is supported by two following works:
 
 
 
-********************************************
+<br><br><br>
 
 
 
@@ -68,7 +68,7 @@ Summarize quantifiable results using statistical measures
 
 
 
-********************************************
+<br><br><br>
 
 ## 3. Application
 
@@ -88,7 +88,7 @@ Summarize quantifiable results using statistical measures
 
 
 
-********************************************
+<br><br><br>
 
 
 

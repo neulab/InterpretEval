@@ -104,11 +104,11 @@ Summarize quantifiable results using statistical measures
 ## 4. Interpreting Your Results?
 
 
-### Method 1: Upload your files to  the ``[ExplainaBoard](http://explainaboard.nlpedia.ai/)`` website
+### 4.1 Method 1: Upload your files to  the ``[ExplainaBoard](http://explainaboard.nlpedia.ai/)`` website
 <img src="fig/new.png" width="350">
 
 
-### Method 2: Run it Locally
+### 4.2 Method 2: Run it Locally
 Give the Named Entity Recognition task as an example. Run the shell: `./run_task_ner.sh`.
 
 The shell scripts include the following three aspects:
@@ -125,25 +125,20 @@ The running process of the Chinese Word Segmentation task is similar.
 
 
 
-#### Requirements:
+#### 4.2.1 Requirements:
 - `python3`
 - `texlive`
 - `pip3 install -r requirements.txt`
 
 
-#### Analysis and diagnosis your own model.
+#### 4.2.2 Analysis and diagnosis your own model.
 
 - Put the result-file of your model on this path: `preComputed/ner/result/`. In order to carry out model diagnosis, two or more model result files must be included. You can also choose one of the result files provided by us as the reference model.
 
-2) Put the train-set which your result-file trained on the path: `./data/`. You need to set the column delimiter of your train-set and result-file in the `main()` function of `tensorEvaluation-ner.py`.
+- Put the train-set which your result-file trained on the path: `./data/`. You need to set the column delimiter of your train-set and result-file in the `main()` function of `tensorEvaluation-ner.py`.
 
-3) Set the `path_data` (path of training set), `datasets[-]` (dataset name), `model1` (the first model's name), `model2` (the second model's name), `resfiles[-]` (the paths of the results) in `run_task_ner.sh` according to your data.
+- Set the `path_data` (path of training set), `datasets[-]` (dataset name), `model1` (the first model's name), `model2` (the second model's name), `resfiles[-]` (the paths of the results) in `run_task_ner.sh` according to your data.
 
-
-
-```
-
-```
 
 
 

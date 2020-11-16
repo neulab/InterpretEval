@@ -51,7 +51,7 @@ The evaluation methodology generally consists of following steps.
 
 
 
-### Attribute Definition
+### 2.1 Attribute Definition
 Taking NER and CWS tasks for example, we have defined 8 attributes for the NER task, and 7 attributes for the CWS task.
 
 | Id |              NER            | 			   CWS 			     | 
@@ -65,10 +65,10 @@ Taking NER and CWS tasks for example, we have defined 8 attributes for the NER t
 | 7  | Label Consistency of Entity | Label Consistency of Word       | 
 | 8  | Entity Density			   |                                 |
 
-### Bucketing 
+### 2.2 Bucketing 
 Bucketing is an operation that breaks down the holistic performance into different categories. This can be achieved by dividing the set of test entities into different subsets of test entities (regarding spanand sentence-level attributes) or test tokens (regarding token-level attributes). 
 
-### Breakdown
+### 2.3 Breakdown
 Calculate the performance of each bucket.
 
 ### Summary Measures
@@ -83,15 +83,15 @@ Summarize quantifiable results using statistical measures
 
 
 
-### System Diagnosis
+### 3.1 System Diagnosis
 * Self-diagnosis
 * Aided-diagnosis
 
 
-### Dataset Bias Analysis
+### 3.2 Dataset Bias Analysis
 
 
-### Structural Bias Analysis 
+### 3.3 Structural Bias Analysis 
 
 
 

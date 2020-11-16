@@ -12,7 +12,7 @@ This project is supported by two following works:
 
 
 
-<br><br><br>
+<br><br>
 
 
 ## 1. Motivated Questions
@@ -27,19 +27,20 @@ This project is supported by two following works:
 
 
 
-<br><br><br>
+<br><br> 
 
 
 
 
 ## 2. Interpretable Evaluation Methodology
+![image](fig/interpretEval.gif)
+
 The evaluation methodology generally consists of following steps.
 
 
 
 <!-- <img src="fig/interpretEval.gif" width="850"> -->
 
-![image](fig/interpretEval.gif)
 
 
 ### Attribute Definition
@@ -68,7 +69,7 @@ Summarize quantifiable results using statistical measures
 
 
 
-<br><br><br>
+<br><br>
 
 ## 3. Application
 
@@ -88,7 +89,7 @@ Summarize quantifiable results using statistical measures
 
 
 
-<br><br><br>
+<br><br>
 
 
 

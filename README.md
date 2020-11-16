@@ -1,5 +1,5 @@
 # Interpretable Evaluation for NLP Tasks
-
+ExplainaBoard: Next Generation of LeaderBoard
 
 by Pengfei Liu, Jinlan Fu, Graham Neubig and other contributors.
 
@@ -40,9 +40,6 @@ by Pengfei Liu, Jinlan Fu, Graham Neubig and other contributors.
 
 
 
-## A Quick Look
-
-### ExplainaBoard
 
 ### Interpretable Evaluation Results
 Here are some generated results of three preliminary evaluation systems: Named Entity Recognition (NER), Chinese Word Segmentation (CWS) and Part-of-Speech (POS).
@@ -51,11 +48,6 @@ Here are some generated results of three preliminary evaluation systems: Named E
 * [POS](http://pfliu.com/tensorEvaluation/tEval-pos.html)
 * [Chunk](http://pfliu.com/tensorEvaluation/tEval-chunk.html)
 
-
-## What's the use of `Interpretable` Evaluation?
-* understand the strengths and weaknesses of a SOTA system
-* which factors of a dataset influence the performance of a task 
-* how different choices of architectures influence one task's performance
 
 
 

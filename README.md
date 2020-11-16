@@ -6,7 +6,7 @@ by Pengfei Liu, Jinlan Fu, Graham Neubig and other contributors.
 
 ## Motivated Questions
 
-<img src="fig/ner.gif" width="700">
+<img src="fig/ner.gif" width="450">
 
 
 ## A Quick Look

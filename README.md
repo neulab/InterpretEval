@@ -12,7 +12,7 @@ This project is a by-product of these works:
 
 
 
-## Motivated Questions
+## 1.Motivated Questions
 
 <img src="fig/ner.gif" width="550">
 
@@ -22,7 +22,7 @@ This project is a by-product of these works:
 
 
 
-## Interpretable Evaluation Methodology
+## 2.Interpretable Evaluation Methodology
 
 ### An example 
 
@@ -54,7 +54,7 @@ Calculate the performance of each bucket.
 
 
 
-## Application
+## 3.Application
 
 
 ### ExplainaBoard: Next Generation of LeaderBoard
@@ -78,7 +78,7 @@ Calculate the performance of each bucket.
 
 
 
-## Interpreting Your Results?
+## 4.Interpreting Your Results?
 
 
 ### Method 1: Upload your files to  the ``ExplainaBoard`` website

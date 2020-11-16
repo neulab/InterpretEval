@@ -69,6 +69,7 @@ The shell scripts include the following three aspects:
 
 After running the above command, a web page named `tEval-ner.html` will be generated for displaying the analysis and diagnosis results of the models. 
 
+The running process of the Chinese Word Segmentation task is similar.
 
 ```
    Notably, so far, our system only supports limited tasks and datasets, we're extending them currently!

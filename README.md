@@ -26,7 +26,7 @@ This project is a by-product of these works:
 
 ### An example 
 
-<img src="fig/interptEval.gif" width="650">
+<img src="fig/interpretEval.gif" width="650">
 
 
 ### Attribute definition

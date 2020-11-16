@@ -31,7 +31,7 @@ This project is a by-product of these works:
 ![image](fig/interpretEval.gif)
 
 
-### Attribute definition
+### Attributes
 Overall, we have define 8 attributes for the NER task, and 7 attributes for the CWS task.
 
 | Id |              NER            | 			   CWS 			     | 

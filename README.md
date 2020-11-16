@@ -124,11 +124,10 @@ After running the above command, a web page named `tEval-ner.html` will be gener
 The running process of the Chinese Word Segmentation task is similar.
 
 ```
-## Requirements
-
--  `python3`
--  `texlive`
-- `pip3 install -r requirements.txt`
+Requirements:
+python3
+texlive
+pip3 install -r requirements.txt
 ```
 
 

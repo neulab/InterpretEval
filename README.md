@@ -1,4 +1,4 @@
-# Interpretable Evaluation for NLP Tasks
+# Interpretable Evaluation for Natural Langauge Processing
 
 
 by Pengfei Liu, Jinlan Fu, Graham Neubig and other contributors.

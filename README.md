@@ -1,4 +1,4 @@
-# Interpretable Evaluation and ExplainaBoard for NLP
+# Interpretable Evaluation for NLP
 
 
 by Pengfei Liu, Jinlan Fu, Graham Neubig and other contributors.

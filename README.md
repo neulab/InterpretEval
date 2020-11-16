@@ -12,7 +12,7 @@ This project is supported by two following works:
 
 
 
-
+********************************************
 
 
 ## 1. Motivated Questions
@@ -22,6 +22,13 @@ This project is supported by two following works:
 * #### Performance of many NLP tasks has reached a plateau. What works, and what's next?
 * #### <strong>Is XX a solved task? What's left?</strong>
 * #### A good evaluation metric can not only rank different systems but also tell their relative advantages (strengths and weaknesses) of them.
+
+
+
+
+
+********************************************
+
 
 
 
@@ -61,6 +68,7 @@ Summarize quantifiable results using statistical measures
 
 
 
+********************************************
 
 ## 3. Application
 
@@ -80,7 +88,7 @@ Summarize quantifiable results using statistical measures
 
 
 
-
+********************************************
 
 
 

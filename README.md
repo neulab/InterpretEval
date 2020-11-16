@@ -20,7 +20,13 @@ by Pengfei Liu, Jinlan Fu, Graham Neubig and other contributors.
 
 ## Interpretable Evaluation Methodology
 
+### Attribute definition
 
+### Attribute value calculation
+
+### Bucketing 
+
+### Breakdown
 
 
 
@@ -57,7 +63,7 @@ by Pengfei Liu, Jinlan Fu, Graham Neubig and other contributors.
 
 
 ### Method 2: Run it Locally
-Give the NER task as an example. Run the shell: `./run_task_ner.sh`.
+Give the Named Entity Recognition task as an example. Run the shell: `./run_task_ner.sh`.
 
 The shell scripts include the following three aspects:
 

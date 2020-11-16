@@ -58,6 +58,19 @@ by Pengfei Liu, Jinlan Fu, Graham Neubig and other contributors.
 
 ### Method 2: Run it Locally
 
+`./run_task_ner.sh`
+
+The shell scripts include the following three aspects:
+
+- `tensorEvaluation-ner.py` -> Calculate the dependent results of fine-grained analysis.
+
+- `genFig.py` -> Drawing figures to show the results of the fine-grained analysis.
+
+- `genHtml.py` -> Put the figures drawing in the previous step into the web page.
+
+After running the above command, a web page named `tEval-ner.html` will be generated for displaying the analysis and diagnosis results of the models. 
+
+
 ```
    Notably, so far, our system only supports limited tasks and datasets, we're extending them currently!
 ```

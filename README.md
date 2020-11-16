@@ -1,4 +1,4 @@
-<img src="fig/nlp.gif" width="800">
+<img src="fig/nlp.png" width="800">
 
 # Interpretable Evaluation for Natural Langauge Processing
 

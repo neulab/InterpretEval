@@ -104,7 +104,7 @@ Summarize quantifiable results using statistical measures
 ## 4. Interpreting Your Results?
 
 
-### 4.1 Method 1: Upload your files to  the ``[ExplainaBoard](http://explainaboard.nlpedia.ai/)`` website
+### 4.1 Method 1: Upload your files to  the [ExplainaBoard](http://explainaboard.nlpedia.ai/) website
 <img src="fig/new.png" width="350">
 
 

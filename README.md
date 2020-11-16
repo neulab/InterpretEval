@@ -14,7 +14,7 @@ by Pengfei Liu, Jinlan Fu, Graham Neubig and other contributors.
 
 
 
-## Interpretable Evaluation By Bucketing
+## Interpretable Evaluation Methodology
 
 
 

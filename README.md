@@ -38,23 +38,11 @@ Overall, we have define 8 attributes for the NER task, and 7 attributes for the 
 | 7  | Label Consistency of Entity | Label Consistency of Word       | 
 | 8  | Entity Density			   |                                 |
 
-
-The attributes for NER: 
-1) Entity Length
-2) Sentence Length
-3) OOV Density
-4) Entity Density 
-4) token frequency
-5) entity frequency
-6) label consistency of token
-7) label consistency of entity
-
-### Attribute value calculation
-
 ### Bucketing 
+Bucketing is an operation that breaks down the holistic performance into different categories. This can be achieved by dividing the set of test entities into different subsets of test entities (regarding spanand sentence-level attributes) or test tokens (regarding token-level attributes). 
 
 ### Breakdown
-
+Calculate the performance of each bucket.
 
 
 

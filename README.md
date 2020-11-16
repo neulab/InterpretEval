@@ -23,6 +23,7 @@ This project is a by-product of these works:
 
 
 ## 2. Interpretable Evaluation Methodology
+The evaluation methodology generally consists of following steps.
 
 ### An example 
 
@@ -31,8 +32,8 @@ This project is a by-product of these works:
 ![image](fig/interpretEval.gif)
 
 
-### Attributes
-Overall, we have define 8 attributes for the NER task, and 7 attributes for the CWS task.
+### Attribute Definition
+Taking NER and CWS tasks for example, we have defined 8 attributes for the NER task, and 7 attributes for the CWS task.
 
 | Id |              NER            | 			   CWS 			     | 
 |----|-----------------------------|---------------------------------|
@@ -51,7 +52,8 @@ Bucketing is an operation that breaks down the holistic performance into differe
 ### Breakdown
 Calculate the performance of each bucket.
 
-
+### Summary Measures
+Summarize quantifiable results using statistical measures
 
 
 

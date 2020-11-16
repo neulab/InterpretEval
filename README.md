@@ -25,6 +25,7 @@ This project is a by-product of these works:
 ## 2. Interpretable Evaluation Methodology
 
 ### An example 
+
 <img src="fig/interptEval.gif" width="650">
 
 

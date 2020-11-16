@@ -4,11 +4,13 @@
 by Pengfei Liu, Jinlan Fu, Graham Neubig and other contributors.
 
 
-## Application I: ExplainaBoard
 
-## Application II: ExplainaBoard
 
-### Expl
+## A Quick Look
+
+### ExplainaBoard
+
+### Interpretable Evaluation Results
 Here are some generated results of three preliminary evaluation systems: Named Entity Recognition (NER), Chinese Word Segmentation (CWS) and Part-of-Speech (POS).
 * [NER](http://pfliu.com/tensorEvaluation/tEval-ner.html)
 * [CWS](http://pfliu.com/tensorEvaluation/tEval-cws.html)

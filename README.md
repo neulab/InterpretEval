@@ -1,5 +1,5 @@
 # Interpretable Evaluation and ExplainaBoard for NLP
-Interpretable Evaluation for (Almost) All NLP Tasks
+
 
 by Pengfei Liu, Jinlan Fu, Graham Neubig and other contributors.
 

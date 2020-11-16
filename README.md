@@ -28,7 +28,7 @@ This project is supported by two following works:
 * #### Performance of many NLP tasks has reached a plateau. What works, and what's next?
 * #### <strong>Is XX a solved task? What's left?</strong>
 * #### A good evaluation metric can not only rank different systems but also tell their relative advantages (strengths and weaknesses) of them.
-
+* #### Next-generation of `Leaderboard`: equip it with powerful analysis ability?
 
 
 

@@ -41,8 +41,17 @@ by Pengfei Liu, Jinlan Fu, Graham Neubig and other contributors.
 
 
 
-### Interpretable Evaluation Results
-Here are some generated results of three preliminary evaluation systems: Named Entity Recognition (NER), Chinese Word Segmentation (CWS) and Part-of-Speech (POS).
+### Interpreting Your Results?
+
+
+### Method 1: Upload your files to  the ``ExplainaBoard`` website
+### Method 2: Run it Locally
+
+```
+   Notably, so far, our system only support limiated tasks and datasets, we're extending them currently!
+```
+
+Here are some generated results of preliminary evaluation systems: Named Entity Recognition (NER), Chinese Word Segmentation (CWS) and Part-of-Speech (POS).
 * [NER](http://pfliu.com/tensorEvaluation/tEval-ner.html)
 * [CWS](http://pfliu.com/tensorEvaluation/tEval-cws.html)
 * [POS](http://pfliu.com/tensorEvaluation/tEval-pos.html)

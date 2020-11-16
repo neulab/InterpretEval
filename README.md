@@ -1,6 +1,6 @@
 <img src="fig/nlp.png" width="800">
 
-### by Pengfei Liu, Jinlan Fu, Graham Neubig and other contributors.
+### by [Pengfei Liu](http://pfliu.com/), [Jinlan Fu](https://scholar.google.com/citations?hl=en&user=D4vtw8QAAAAJ), [Graham Neubig](http://phontron.com/) and other contributors.
 
 
 This project is a by-product of these works:

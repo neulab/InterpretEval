@@ -1,6 +1,6 @@
 <img src="fig/nlp.png" width="800">
 
-# Interpretable Evaluation for Natural Langauge Processing
+
 
 
 by Pengfei Liu, Jinlan Fu, Graham Neubig and other contributors.

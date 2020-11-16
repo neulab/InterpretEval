@@ -1,7 +1,11 @@
+<img src="fig/nlp.gif" width="800">
+
 # Interpretable Evaluation for Natural Langauge Processing
 
 
 by Pengfei Liu, Jinlan Fu, Graham Neubig and other contributors.
+
+
 
 
 ## Motivated Questions

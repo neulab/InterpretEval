@@ -10,7 +10,7 @@ by Pengfei Liu, Jinlan Fu, Graham Neubig and other contributors.
 
 ## Motivated Questions
 
-<img src="fig/ner.gif" width="450">
+<img src="fig/ner.gif" width="550">
 
 * #### Performance of many NLP tasks has reached a plateau. What works, and what's next?
 * #### <strong>Is XX a solved task? What's left?</strong>

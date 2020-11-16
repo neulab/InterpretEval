@@ -11,10 +11,10 @@ This project is supported by two following works:
 
 
 
-## Final Product (Updating)
+## Final Product: [ExplainaBoard]((http://explainaboard.nlpedia.ai/)) (Updating)
 <img src="fig/board.png" width="600">
 
-### [ExplainaBoard for Natural Language Processing](http://explainaboard.nlpedia.ai/) 
+
 
 
 

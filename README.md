@@ -1,5 +1,5 @@
 # Interpretable Evaluation for NLP Tasks
-ExplainaBoard: Next Generation of LeaderBoard
+
 
 by Pengfei Liu, Jinlan Fu, Graham Neubig and other contributors.
 
@@ -8,9 +8,9 @@ by Pengfei Liu, Jinlan Fu, Graham Neubig and other contributors.
 
 <img src="fig/ner.gif" width="450">
 
-* Performance of many NLP tasks has reached a plateau. What works, and what's next?
-* <strong>Is XX a solved task? What's left?</strong>
-* A good evaluation metric can not only rank different systems but also tell their relative advantages (strengths and weaknesses) of them.
+* #### Performance of many NLP tasks has reached a plateau. What works, and what's next?
+* #### <strong>Is XX a solved task? What's left?</strong>
+* #### A good evaluation metric can not only rank different systems but also tell their relative advantages (strengths and weaknesses) of them.
 
 
 

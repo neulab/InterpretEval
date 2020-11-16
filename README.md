@@ -143,7 +143,8 @@ The running process of the Chinese Word Segmentation task is similar.
 
 
 ```
-   Notably, so far, our system only supports limited tasks and datasets, we're extending them currently!
+   Notably, so far, our system only supports limited tasks and datasets, 
+   we're extending them currently!
 ```
 
 

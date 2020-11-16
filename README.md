@@ -5,9 +5,9 @@
 
 This project is a by-product of these works:
 
-1) [Interpretable Multi-dataset Evaluation for Named Entity Recognition](https://www.aclweb.org/anthology/2020.emnlp-main.489.pdf)
+1) [Interpretable Multi-dataset Evaluation for Named Entity Recognition (EMNLP-2020)](https://www.aclweb.org/anthology/2020.emnlp-main.489.pdf)
 
-2) [RethinkCWS: Is Chinese Word Segmentation a Solved Task?](https://www.aclweb.org/anthology/2020.emnlp-main.457.pdf)
+2) [RethinkCWS: Is Chinese Word Segmentation a Solved Task? (EMNLP-2020)](https://www.aclweb.org/anthology/2020.emnlp-main.457.pdf)
 
 
 

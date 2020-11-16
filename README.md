@@ -12,6 +12,9 @@ This project is supported by two following works:
 
 
 
+
+
+
 ## 1. Motivated Questions
 
 <img src="fig/ner.gif" width="550">
@@ -25,7 +28,7 @@ This project is supported by two following works:
 ## 2. Interpretable Evaluation Methodology
 The evaluation methodology generally consists of following steps.
 
-### An example 
+
 
 <!-- <img src="fig/interpretEval.gif" width="850"> -->
 
@@ -61,8 +64,6 @@ Summarize quantifiable results using statistical measures
 
 ## 3. Application
 
-
-### ExplainaBoard: Next Generation of LeaderBoard
 
 
 ### System Diagnosis

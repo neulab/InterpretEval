@@ -8,6 +8,12 @@ by Pengfei Liu, Jinlan Fu, Graham Neubig and other contributors.
 
 <img src="fig/ner.gif" width="450">
 
+* Is XX a solved task? What's left?
+* Performance of many NLP tasks has reached a plateau. What works, and what's next?
+* A good evaluation metric can not only rank different systems but also tell relative advantages (strengths and weaknesses) of them.
+
+
+
 
 ## A Quick Look
 

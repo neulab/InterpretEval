@@ -105,7 +105,7 @@ Summarize quantifiable results using statistical measures
 
 
 ### Method 1: Upload your files to  the ``ExplainaBoard`` website
-<img src="fig/new.png" width="550">
+<img src="fig/new.png" width="350">
 
 
 ### Method 2: Run it Locally

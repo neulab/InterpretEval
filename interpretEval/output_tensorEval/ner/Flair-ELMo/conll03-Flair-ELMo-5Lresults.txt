@@ -1,0 +1,8 @@
+# information
+corpus type: conll03
+model_name1: Flair
+model_name2: ELMo
+# holistic result 
+Flair: 93.03
+ELMo: 92.22
+

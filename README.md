@@ -13,7 +13,7 @@ This project is supported by two following works:
 
 ## Final Product: [ExplainaBoard](http://explainaboard.nlpedia.ai/) (Updating)
 <!-- <img src="fig/board.png" width="600"> -->
-<img src="fig/yanshi.gif" width="550">
+<img src="fig/yanshi.gif" width="650">
 
 
 

@@ -17,6 +17,10 @@ This project is supported by two following works:
 
 
 
+## Updates:
+* Added one SOTA NER system and two top-scoring systems on CoNLL03, check out: http://explainaboard.nlpedia.ai/?search=CoNLL
+Thanks Ikuya Yamada and Stefan Schweter for their sharing results.
+
 
 
 

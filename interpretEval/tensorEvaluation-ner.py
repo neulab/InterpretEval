@@ -1926,6 +1926,8 @@ def compute_holistic_f1_re(path, delimiter = "\t"):
 
 
 def compute_holistic_f1(fn_result, delimiter = " "):
+	if not os.path.isfile(fn_result):
+		raise FileNotFoundError(f'result file not found: {fn_result}')
 	if delimiter == " ":
 		cmd = 'perl %s < %s' % (os.path.join('.', 'conlleval'), fn_result)
 

@@ -1,3 +1,6 @@
+#!/bin/bash
+set -e
+
 # Task type
 task_type="ner"
 

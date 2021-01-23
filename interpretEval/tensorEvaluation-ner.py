@@ -229,9 +229,10 @@ def getAspectValue(test_word_sequences, test_trueTag_sequences, test_word_sequen
 
 			# introduce the oov density in sentence ...
 			num_oov = 0
-			for word in test_word_sequences_sent[i]:
-				if word not in dict_oov:
-					num_oov += 1
+			if dict_oov is not None:
+				for word in test_word_sequences_sent[i]:
+					if word not in dict_oov:
+						num_oov += 1
 			oDen.append(float(num_oov) / len(test_sent))
 
 			# introduce the sentence length in sentence ...
@@ -262,7 +263,7 @@ def getAspectValue(test_word_sequences, test_trueTag_sequences, test_word_sequen
 	if "oDen" in dict_aspect_func.keys():
 		eDen_list, oDen_list, sentLen_list = getSententialValue(test_trueTag_sequences_sent,
 																	 test_word_sequences_sent,
-																	 dict_preComputed_model["oDen"])
+																	 dict_preComputed_model.get("oDen", None))
 
 
 	dict_pos2sid = getPos2SentId(test_word_sequences_sent)

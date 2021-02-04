@@ -1,0 +1,316 @@
+<html>
+  <head>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+
+
+
+<script type="text/javascript">
+function myFunction(elem) {
+  var x = document.getElementById(elem);
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    //$("#"+elem+ " img").css({"width":"400px","height":"200px"})
+  } else {
+    x.style.display = "none";
+    //$("#"+elem+ " img").css({"width":"150px","height":"100px"})
+  }
+}
+</script>
+
+
+
+
+<script type="text/javascript">
+  $(function(){
+    $('img').mouseenter(function(){
+      var wValue=3 * $(this).width();
+      var hValue=3 * $(this).height();    
+      $(this).stop().animate({width: wValue,
+              height: hValue,
+              left:("-"+(0.5 * $(this).width())/2),
+              top:("-"+(0.5 * $(this).height())/2)}, 1000);
+    }).mouseleave(function(){
+      $(this).stop().animate({width:150,
+                     height: 130,
+                     left:"0px",
+                     top:"0px"}, 1000 );
+    });
+  });
+</script>
+
+
+    <h3>1. Holistic Result</h3>
+
+
+    <div class='table_self_diagnosis'>
+ <div class='tr_title'><div class='td'><a href="#" data-toggle="tooltip" title="different types of models">Model</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="dataset: CoNLL 2003">conll03</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="">wnut16</a></div>
+</div>
+ <div class='tr_plain'><div class='td'><a href="#" data-toggle="tooltip" title="">Flair</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="">93.03</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="">45.96</a></div>
+</div>
+ <div class='tr_plain'><div class='td'><a href="#" data-toggle="tooltip" title="">ELMo</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="">92.22</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="">45.33</a></div>
+</div>
+</div>
+
+    <HR style="border:1 dashed #987cb9" width="100%" color="gray" SIZE=2>  
+    <!------------------------------------------------------------------------- -->
+
+    <h3>2. Break-down Performance</h3>
+
+    <div class='table_breakdown'>
+<li><b>Model Setting:</b> <i>Flair</i></li>
+<h5> Dataset: <i> conll03</i>
+<div class='table_breakdown'>
+ <div class='tr_title'><div class='td'><a href="#" data-toggle="tooltip" title="label consistency of entity">eCon</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="label consistency of token">tCon</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="entity frequency in training set">eFre</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="token frequency in training set">tFre</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="the length of entity">eLen</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="the length of sentence">sLen</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="entity density in a given sentence">eDen</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="oov density in a given sentence">oDen</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="span-level label">tag</a></div>
+</div>
+ <div class='tr'><div class='td'><img src=./ner-fig/Flair-ELMo/conll03-Flair-breakdown-eCon.png alt="image" /><button onclick="myFunction(56753441)">Click Me</button>
+<div id="56753441" style="display: none;">0:(0,) 1:(0,0.5) 2:(0.5,0.999) 3:(1,)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/conll03-Flair-breakdown-tCon.png alt="image" /><button onclick="myFunction(12692123)">Click Me</button>
+<div id="12692123" style="display: none;">0:(0,) 1:(0,0.5) 2:(0.5,0.999) 3:(1,)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/conll03-Flair-breakdown-eFre.png alt="image" /><button onclick="myFunction(2694759)">Click Me</button>
+<div id="2694759" style="display: none;">0:(0,) 1:(0,0.032) 2:(0.032,0.173) 3:(0.173,1)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/conll03-Flair-breakdown-tFre.png alt="image" /><button onclick="myFunction(74345474)">Click Me</button>
+<div id="74345474" style="display: none;">0:(0,) 1:(0,0.003) 2:(0.003,0.015) 3:(0.015,1)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/conll03-Flair-breakdown-eLen.png alt="image" /><button onclick="myFunction(72390515)">Click Me</button>
+<div id="72390515" style="display: none;">0:(1,) 1:(2,) 2:(3,) 3:(3,6)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/conll03-Flair-breakdown-sLen.png alt="image" /><button onclick="myFunction(9461814)">Click Me</button>
+<div id="9461814" style="display: none;">0:(1,7) 1:(7,16) 2:(16,31) 3:(31,124)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/conll03-Flair-breakdown-eDen.png alt="image" /><button onclick="myFunction(9693697)">Click Me</button>
+<div id="9693697" style="display: none;">0:(0.0222,0.15) 1:(0.15,0.258) 2:(0.258,0.429) 3:(0.429,1)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/conll03-Flair-breakdown-oDen.png alt="image" /><button onclick="myFunction(56371294)">Click Me</button>
+<div id="56371294" style="display: none;">0:(0,) 1:(0,0.0667) 2:(0.0667,0.203) 3:(0.203,1)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/conll03-Flair-breakdown-tag.png alt="image" /><button onclick="myFunction(7340763)">Click Me</button>
+<div id="7340763" style="display: none;">0:('loc',) 1:('misc',) 2:('org',) 3:('per',)</div>
+</div>
+</div>
+</div></h5>
+<h5> Dataset: <i> wnut16</i>
+<div class='table_breakdown'>
+ <div class='tr_title'><div class='td'><a href="#" data-toggle="tooltip" title="label consistency of entity">eCon</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="label consistency of token">tCon</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="entity frequency in training set">eFre</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="token frequency in training set">tFre</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="the length of entity">eLen</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="the length of sentence">sLen</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="entity density in a given sentence">eDen</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="oov density in a given sentence">oDen</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="span-level label">tag</a></div>
+</div>
+ <div class='tr'><div class='td'><img src=./ner-fig/Flair-ELMo/wnut16-Flair-breakdown-eCon.png alt="image" /><button onclick="myFunction(54812230)">Click Me</button>
+<div id="54812230" style="display: none;">0:(0,) 1:(0,0.5) 2:(0.5,0.999) 3:(1,)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/wnut16-Flair-breakdown-tCon.png alt="image" /><button onclick="myFunction(4563823)">Click Me</button>
+<div id="4563823" style="display: none;">0:(0,) 1:(0,0.5) 2:(0.5,0.999) 3:(1,)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/wnut16-Flair-breakdown-eFre.png alt="image" /><button onclick="myFunction(50837144)">Click Me</button>
+<div id="50837144" style="display: none;">0:(0,) 1:(0.015,) 2:(0.015,0.077) 3:(0.077,1)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/wnut16-Flair-breakdown-tFre.png alt="image" /><button onclick="myFunction(9309423)">Click Me</button>
+<div id="9309423" style="display: none;">0:(0,) 1:(0,0.002) 2:(0.002,0.027) 3:(0.027,1)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/wnut16-Flair-breakdown-eLen.png alt="image" /><button onclick="myFunction(78831438)">Click Me</button>
+<div id="78831438" style="display: none;">0:(1,) 1:(2,) 2:(3,) 3:(3,14)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/wnut16-Flair-breakdown-sLen.png alt="image" /><button onclick="myFunction(6226718)">Click Me</button>
+<div id="6226718" style="display: none;">0:(2,15) 1:(15,20) 2:(20,24) 3:(24,35)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/wnut16-Flair-breakdown-eDen.png alt="image" /><button onclick="myFunction(18329797)">Click Me</button>
+<div id="18329797" style="display: none;">0:(0.0294,0.105) 1:(0.105,0.188) 2:(0.188,0.294) 3:(0.294,0.952)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/wnut16-Flair-breakdown-oDen.png alt="image" /><button onclick="myFunction(65794627)">Click Me</button>
+<div id="65794627" style="display: none;">0:(0,) 1:(0,0.0909) 2:(0.0909,0.167) 3:(0.167,1)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/wnut16-Flair-breakdown-tag.png alt="image" /><button onclick="myFunction(53992471)">Click Me</button>
+<div id="53992471" style="display: none;">0:('company',) 1:('facility',) 2:('loc',) 3:('other',) 4:('person',) 5:('product',)</div>
+</div>
+</div>
+</div></h5>
+<li><b>Model Setting:</b> <i>ELMo</i></li>
+<h5> Dataset: <i> conll03</i>
+<div class='table_breakdown'>
+ <div class='tr_title'><div class='td'><a href="#" data-toggle="tooltip" title="label consistency of entity">eCon</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="label consistency of token">tCon</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="entity frequency in training set">eFre</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="token frequency in training set">tFre</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="the length of entity">eLen</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="the length of sentence">sLen</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="entity density in a given sentence">eDen</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="oov density in a given sentence">oDen</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="span-level label">tag</a></div>
+</div>
+ <div class='tr'><div class='td'><img src=./ner-fig/Flair-ELMo/conll03-ELMo-breakdown-eCon.png alt="image" /><button onclick="myFunction(80484023)">Click Me</button>
+<div id="80484023" style="display: none;">0:(0,) 1:(0,0.5) 2:(0.5,0.999) 3:(1,)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/conll03-ELMo-breakdown-tCon.png alt="image" /><button onclick="myFunction(10445925)">Click Me</button>
+<div id="10445925" style="display: none;">0:(0,) 1:(0,0.5) 2:(0.5,0.999) 3:(1,)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/conll03-ELMo-breakdown-eFre.png alt="image" /><button onclick="myFunction(70144521)">Click Me</button>
+<div id="70144521" style="display: none;">0:(0,) 1:(0,0.032) 2:(0.032,0.173) 3:(0.173,1)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/conll03-ELMo-breakdown-tFre.png alt="image" /><button onclick="myFunction(38143199)">Click Me</button>
+<div id="38143199" style="display: none;">0:(0,) 1:(0,0.003) 2:(0.003,0.015) 3:(0.015,1)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/conll03-ELMo-breakdown-eLen.png alt="image" /><button onclick="myFunction(1051550)">Click Me</button>
+<div id="1051550" style="display: none;">0:(1,) 1:(2,) 2:(3,) 3:(3,6)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/conll03-ELMo-breakdown-sLen.png alt="image" /><button onclick="myFunction(47857527)">Click Me</button>
+<div id="47857527" style="display: none;">0:(1,7) 1:(7,16) 2:(16,31) 3:(31,124)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/conll03-ELMo-breakdown-eDen.png alt="image" /><button onclick="myFunction(72490106)">Click Me</button>
+<div id="72490106" style="display: none;">0:(0.0222,0.15) 1:(0.15,0.258) 2:(0.258,0.429) 3:(0.429,1)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/conll03-ELMo-breakdown-oDen.png alt="image" /><button onclick="myFunction(90507285)">Click Me</button>
+<div id="90507285" style="display: none;">0:(0,) 1:(0,0.0667) 2:(0.0667,0.203) 3:(0.203,1)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/conll03-ELMo-breakdown-tag.png alt="image" /><button onclick="myFunction(68656484)">Click Me</button>
+<div id="68656484" style="display: none;">0:('loc',) 1:('misc',) 2:('org',) 3:('per',)</div>
+</div>
+</div>
+</div>
+<h5> Dataset: <i> wnut16</i>
+<div class='table_breakdown'>
+ <div class='tr_title'><div class='td'><a href="#" data-toggle="tooltip" title="label consistency of entity">eCon</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="label consistency of token">tCon</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="entity frequency in training set">eFre</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="token frequency in training set">tFre</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="the length of entity">eLen</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="the length of sentence">sLen</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="entity density in a given sentence">eDen</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="oov density in a given sentence">oDen</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="span-level label">tag</a></div>
+</div>
+ <div class='tr'><div class='td'><img src=./ner-fig/Flair-ELMo/wnut16-ELMo-breakdown-eCon.png alt="image" /><button onclick="myFunction(1432280)">Click Me</button>
+<div id="1432280" style="display: none;">0:(0,) 1:(0,0.5) 2:(0.5,0.999) 3:(1,)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/wnut16-ELMo-breakdown-tCon.png alt="image" /><button onclick="myFunction(98581581)">Click Me</button>
+<div id="98581581" style="display: none;">0:(0,) 1:(0,0.5) 2:(0.5,0.999) 3:(1,)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/wnut16-ELMo-breakdown-eFre.png alt="image" /><button onclick="myFunction(74080850)">Click Me</button>
+<div id="74080850" style="display: none;">0:(0,) 1:(0.015,) 2:(0.015,0.077) 3:(0.077,1)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/wnut16-ELMo-breakdown-tFre.png alt="image" /><button onclick="myFunction(30650012)">Click Me</button>
+<div id="30650012" style="display: none;">0:(0,) 1:(0,0.002) 2:(0.002,0.027) 3:(0.027,1)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/wnut16-ELMo-breakdown-eLen.png alt="image" /><button onclick="myFunction(71132902)">Click Me</button>
+<div id="71132902" style="display: none;">0:(1,) 1:(2,) 2:(3,) 3:(3,14)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/wnut16-ELMo-breakdown-sLen.png alt="image" /><button onclick="myFunction(7795466)">Click Me</button>
+<div id="7795466" style="display: none;">0:(2,15) 1:(15,20) 2:(20,24) 3:(24,35)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/wnut16-ELMo-breakdown-eDen.png alt="image" /><button onclick="myFunction(97192339)">Click Me</button>
+<div id="97192339" style="display: none;">0:(0.0294,0.105) 1:(0.105,0.188) 2:(0.188,0.294) 3:(0.294,0.952)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/wnut16-ELMo-breakdown-oDen.png alt="image" /><button onclick="myFunction(30091733)">Click Me</button>
+<div id="30091733" style="display: none;">0:(0,) 1:(0,0.0909) 2:(0.0909,0.167) 3:(0.167,1)</div>
+</div>
+<div class='td'><img src=./ner-fig/Flair-ELMo/wnut16-ELMo-breakdown-tag.png alt="image" /><button onclick="myFunction(3997328)">Click Me</button>
+<div id="3997328" style="display: none;">0:('company',) 1:('facility',) 2:('loc',) 3:('other',) 4:('person',) 5:('product',)</div>
+</div>
+</div>
+</div>
+
+
+
+
+    <HR style="border:1 dashed #987cb9" width="100%" color="gray" SIZE=2>  
+    <!------------------------------------------------------------------------- -->
+
+    <!------------------------------------------------------------------------- -->
+    <h3>3. Self-diagnosis </h3>
+
+    <li><b>Model Setting:</b> <i>Flair</i></li>
+<div class='table_self_diagnosis'>
+ <div class='tr_title'><div class='td'><a href="#" data-toggle="tooltip" title="dataset: CoNLL 2003">conll03</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="">wnut16</a></div>
+</div>
+ <div class='tr'><div class='td'><a href="#" data-toggle="tooltip" title=""><img src=./ner-fig/Flair-ELMo/conll03-Flair-selfdiag.png alt="image" /></a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title=""><img src=./ner-fig/Flair-ELMo/wnut16-Flair-selfdiag.png alt="image" /></a></div>
+</div>
+</div>
+<br></br><li><b>Model Setting:</b> <i>ELMo</i></li>
+<div class='table_self_diagnosis'>
+ <div class='tr_title'><div class='td'><a href="#" data-toggle="tooltip" title="dataset: CoNLL 2003">conll03</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="">wnut16</a></div>
+</div>
+ <div class='tr'><div class='td'><a href="#" data-toggle="tooltip" title=""><img src=./ner-fig/Flair-ELMo/conll03-ELMo-selfdiag.png alt="image" /></a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title=""><img src=./ner-fig/Flair-ELMo/wnut16-ELMo-selfdiag.png alt="image" /></a></div>
+</div>
+</div>
+
+
+
+    <HR style="border:1 dashed #987cb9" width="100%" color="gray" SIZE=2>  
+    <!------------------------------------------------------------------------- -->
+
+
+    <h3>4. Aided-diagnosis </h3>
+    <li><b>Model Setting:</b> <i>Flair - ELMo</i></li>
+    <div class='table_aided_diagnosis'>
+ <div class='tr_title'><div class='td'><a href="#" data-toggle="tooltip" title="dataset: CoNLL 2003">conll03</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="">wnut16</a></div>
+</div>
+ <div class='tr'><div class='td'><a href="#" data-toggle="tooltip" title=""><img src=./ner-fig/Flair-ELMo/conll03-Flair_ELMo-aideddiag.png alt="image" /></a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title=""><img src=./ner-fig/Flair-ELMo/wnut16-Flair_ELMo-aideddiag.png alt="image" /></a></div>
+</div>
+</div>
+
+
+    <HR style="border:1 dashed #987cb9" width="100%" color="gray" SIZE=2>  
+    <!------------------------------------------------------------------------- -->
+
+    <h3>5. Heatmap </h3>
+    <li><b>Model Setting:</b> <i>Flair - ELMo</i></li>
+    <div class='table_aided_diagnosis'>
+ <div class='tr_title'><div class='td'><a href="#" data-toggle="tooltip" title="dataset: CoNLL 2003">conll03</a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title="">wnut16</a></div>
+</div>
+ <div class='tr'><div class='td'><a href="#" data-toggle="tooltip" title=""><img src=./ner-fig/Flair-ELMo/conll03-Flair_ELMo-heatmap.png alt="image" /></a></div>
+<div class='td'><a href="#" data-toggle="tooltip" title=""><img src=./ner-fig/Flair-ELMo/wnut16-Flair_ELMo-heatmap.png alt="image" /></a></div>
+</div>
+</div>
+
+
+
+
+
+  </body>
+</html>
+
+
+
+
+

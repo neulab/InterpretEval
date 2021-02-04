@@ -1,7 +1,7 @@
-numpy>=1.17.2
-jsonpickle>=1.2
-scipy>=1.4.1
-matplotlib>=3.1.2
-scikit-learn>=0.21.3
+numpy
+jsonpickle
+scipy
+matplotlib
+scikit-learn
 
 

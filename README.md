@@ -137,17 +137,22 @@ The running process of the Chinese Word Segmentation task is similar.
 
 #### 4.2.2 Analysis and diagnosis your own model.
 
-- Put the result-file of your model on this path: `preComputed/ner/result/`. In order to carry out model diagnosis, two or more model result files must be included. You can also choose one of the result files provided by us as the reference model.
+Take CoNLL-2003 datasets as an example.
 
-- Put the train-set which your result-file trained on the path: `./data/`. You need to set the column delimiter of your train-set and result-file in the `main()` function of `tensorEvaluation-ner.py`.
+- Put the result-file of your model on this path: `data/ner/conll03/results/`. In order to carry out model diagnosis, two or more model result files must be included. You can also choose one of the result files provided by us as the reference model.
+
+- Put the train-set which your result-file trained on the path: `data/ner/conll03//data/`. You need to set the column delimiter of your train-set and result-file in the `main()` function of `tensorEvaluation-ner.py`.
 
 - Set the `path_data` (path of training set), `datasets[-]` (dataset name), `model1` (the first model's name), `model2` (the second model's name), `resfiles[-]` (the paths of the results) in `run_task_ner.sh` according to your data.
+
+- Run: `./run_task_ner.sh`. The analysis results are on the path `output_tensorEval/ner/your_model_name/`.
 
 #### 4.2.3 Note: 
 - **More than two result files are required.**  Because comparative-diagnosis is to compare the strengths and weaknesses of the model architectures and pre-trained knowledge between two or more models, it is necessary to input as least two model results. 
 
 - **The result file must include three columns of words, true-tags, and predicted-tags, separated by space.** If your result file is not in the required format, you can modify the function `read_data()` in file `tensorEvaluation-ner.py` to adaptive to your format. 
 
+#### 4.2.3 Analysis and diagnosis your own model.
 
 
 ```

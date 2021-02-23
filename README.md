@@ -27,7 +27,7 @@ Thanks [Ikuya Yamada](http://www.ikuya.net/index-en.html) and [Stefan Schweter](
 <br> 
 
 
-## 1. Motivated Questions
+## 1. Motivating Questions
 
 <img src="fig/ner.gif" width="550">
 
@@ -132,6 +132,7 @@ The running process of the Chinese Word Segmentation task is similar.
 #### 4.2.1 Requirements:
 - `python3`
 - `texlive`
+- `poppler`
 - `pip3 install -r requirements.txt`
 
 

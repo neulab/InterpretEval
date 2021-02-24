@@ -130,10 +130,10 @@ def property_block(property_range_dic):
 		up_bounds.append(float(p_range.split(',')[1][:-1]) )
 		p_ranges.append(p_range)
 		total_count_entity+=count_entity
-	print('low_bounds',low_bounds)
-	print('up_bounds', up_bounds)
-	print('p_ranges',p_ranges)
-	print('total_count_entity',total_count_entity)
+	# print('low_bounds',low_bounds)
+	# print('up_bounds', up_bounds)
+	# print('p_ranges',p_ranges)
+	# print('total_count_entity',total_count_entity)
 	return low_bounds, up_bounds,p_ranges
 
 
@@ -781,865 +781,6 @@ def read_data_atc(path_file, col):
 
 
 
-def getAspectValue_atc(sample_list_sent, sample_list_word, sample_list_span, sample_list_tag, dict_preComputed_path, dict_aspect_func):
-
-
-
-	dict_preComputed_model = {}
-	oDen_list, sentLen_list = [], []
-
-	for aspect, path in dict_preComputed_path.items():
-		print("path:\t"+path)
-		if os.path.exists(path):
-			print('load the hard dictionary of entity span in test set...')
-
-			if aspect == "tCon":
-				fread = open(path, 'rb')
-				dict_preComputed_model["tCon"], dict_preComputed_model["tFre"] = pickle.load(fread)
-			if aspect == "eCon":
-				fread = open(path, 'rb')
-				dict_preComputed_model["eCon"], dict_preComputed_model["eFre"] = pickle.load(fread)
-			if aspect == "oDen":
-				fread = open(path, 'rb')
-				_, oDen_list, sentLen_list = pickle.load(fread)
-
-		else:
-			raise ValueError("can not load hard dictionary" + aspect + "\t" + path)
-
-
-
-
-	dict_span2aspectVal = {}
-	for aspect, fun in dict_aspect_func.items():
-		dict_span2aspectVal[aspect] = {}
-
-
-	#print("-----sample_list_sent-----")
-	#print(sample_list_sent)
-
-	sample_id = 0
-	for  sent, word_list, spanInfo, tag in zip(sample_list_sent, sample_list_word, sample_list_span, sample_list_tag):
-
-		sent_length = len(word_list)
-		sent_pos = tuple2str((sample_id, tag))
-		# for each span (entity): sample_id, entity, tag, sent_start, sent_end
-		span_length = len(spanInfo[1].split(" "))
-		span_pos = tuple2str(spanInfo)
-
-		# Sentence Length: sentLen
-		aspect = "sentLen"
-		if aspect in dict_aspect_func.keys():
-			dict_span2aspectVal["sentLen"][sent_pos] = float(sent_length)
-
-
-
-		# Tag: tag
-		aspect = "tag"
-		if aspect in dict_aspect_func.keys():
-			dict_span2aspectVal["tag"][sent_pos] = tag
-
-
-
-		# span-length: eLen
-		aspect = "eLen"
-		if aspect in dict_aspect_func.keys():
-			dict_span2aspectVal[aspect][span_pos] = span_length
-
-
-
-
-		sample_id += 1
-
-
-
-	return  dict_span2aspectVal
-
-
-
-
-def new_metric_atc(corpus_type, delimiter, column_info,
-			   task2funcName,
-			   dict_aspect_func,
-			   dict_precomputed_path,
-			   fn_train,
-			   fn_test_results
-			   ):
-
-	#column_true_tag_train, column_true_tag_test, column_pred_tag_test = column_info
-
-	#sample_list_sent, sample_list_word, sample_list_span, sample_list_tag = read_data_atc(fn_train, -1)
-	sample_list_sent, sample_list_word, sample_list_span, sample_list_tag = read_data_atc(fn_test_results, -2)
-	sample_list_sent, sample_list_word, sample_list_span_pred, sample_list_tag_pred = read_data_atc(fn_test_results, -1)
-
-
-
-
-
-
-
-
-	dict_span2aspectVal = {}
-	dict_span2aspectVal_pred = {}
-
-
-
-
-	dict_span2aspectVal      = eval(task2funcName)(sample_list_sent, sample_list_word, sample_list_span, sample_list_tag, dict_precomputed_path, dict_aspect_func)
-	dict_span2aspectVal_pred = eval(task2funcName)(sample_list_sent, sample_list_word, sample_list_span_pred, sample_list_tag_pred, dict_precomputed_path, dict_aspect_func)
-
-
-
-
-
-	def __selectBucktingFunc(func_name, func_setting, dict_obj):
-		if func_name == "bucketAttribute_SpecifiedBucketInterval":
-			return eval(func_name)(dict_obj, eval(func_setting))
-		elif func_name == "bucketAttribute_SpecifiedBucketValue":
-			if len(func_setting.split("\t"))!=2:
-				raise ValueError("selectBucktingFunc Error!")
-			n_buckets, specified_bucket_value_list = int(func_setting.split("\t")[0]), eval(func_setting.split("\t")[1])
-			return eval(func_name)(dict_obj, n_buckets, specified_bucket_value_list)
-		elif func_name == "bucketAttribute_DiscreteValue": # now the discrete value is R-tag..
-			if len(func_setting.split("\t"))!=2:
-				raise ValueError("selectBucktingFunc Error!")
-			tags_list = list(set(dict_obj.values()))
-			print("tags_list: ",tags_list)
-			print("len(tags_list): ",len(tags_list))
-			topK_buckets, min_buckets = int(func_setting.split("\t")[0]), int(func_setting.split("\t")[1])
-			#return eval(func_name)(dict_obj, min_buckets, topK_buckets)
-			return eval(func_name)(dict_obj, topK_buckets, min_buckets)
-
-
-
-	dict_bucket2span = {}
-	dict_bucket2span_pred = {}
-	dict_bucket2f1={}
-	aspect_names = []
-
-	for aspect, func in dict_aspect_func.items():
-		#print(aspect, dict_span2aspectVal[aspect])
-		dict_bucket2span[aspect]      = __selectBucktingFunc(func[0], func[1], dict_span2aspectVal[aspect])
-		# print(aspect, dict_bucket2span[aspect])
-		#exit()
-		dict_bucket2span_pred[aspect] =  bucketAttribute_SpecifiedBucketInterval(dict_span2aspectVal_pred[aspect], dict_bucket2span[aspect].keys())
-		dict_bucket2f1[aspect]  	  = getBucketF1(dict_bucket2span[aspect],  dict_bucket2span_pred[aspect])
-		aspect_names.append(aspect)
-	print("aspect_names: ",aspect_names)
-
-
-
-	return dict_bucket2f1, aspect_names
-
-
-
-
-
-
-def read_data_tc(path_file, col):
-	sample_list_sent = []
-	sample_list_word = []
-	sample_list_tag = []
-	sample_list_span = []
-
-	fin = open(path_file, "r")
-	#all_samples = fin.read()
-	#col = -1
-
-	#for sample_id, sample in enumerate(all_samples.split("\n")):
-	for sample_id, sample in enumerate(fin):
-
-		sample = sample.rstrip("\n")
-		sentence = sample.split("\t")[0]
-		tag = sample.split("\t")[col]
-
-
-
-
-
-
-		#span_pos = sentence.find(span)
-
-
-		# if span_pos == -1:
-		# 	continue
-
-		# for each entity: sample_id, entity, tag, sent_start, sent_end
-
-		#span_info = (sample_id, span, tag, span_pos, span_pos + len(span) - 1)
-
-		sample_list_sent.append(sentence)
-		sample_list_word.append(sentence.split(" "))
-		sample_list_tag.append(tag)
-		# sample_list_span.append(span_info)
-	#print(sample_list_sent)
-	return sample_list_sent, sample_list_word, sample_list_span, sample_list_tag
-
-
-
-
-def getAspectValue_tc(sample_list_sent, sample_list_word, sample_list_span, sample_list_tag, dict_preComputed_path, dict_aspect_func):
-
-
-
-	dict_preComputed_model = {}
-	oDen_list, sentLen_list = [], []
-
-	for aspect, path in dict_preComputed_path.items():
-		print("path:\t"+path)
-		if os.path.exists(path):
-			print('load the hard dictionary of entity span in test set...')
-
-			if aspect == "tCon":
-				fread = open(path, 'rb')
-				dict_preComputed_model["tCon"], dict_preComputed_model["tFre"] = pickle.load(fread)
-			if aspect == "eCon":
-				fread = open(path, 'rb')
-				dict_preComputed_model["eCon"], dict_preComputed_model["eFre"] = pickle.load(fread)
-			if aspect == "oDen":
-				fread = open(path, 'rb')
-				_, oDen_list, sentLen_list = pickle.load(fread)
-
-		else:
-			raise ValueError("can not load hard dictionary" + aspect + "\t" + path)
-
-
-
-
-	dict_span2aspectVal = {}
-	for aspect, fun in dict_aspect_func.items():
-		dict_span2aspectVal[aspect] = {}
-
-
-	#print("-----sample_list_sent-----")
-	#print(sample_list_sent)
-
-	sample_id = 0
-	for  sent, word_list, tag in zip(sample_list_sent, sample_list_word, sample_list_tag):
-
-		sent_length = len(word_list)
-		sent_pos = tuple2str((sample_id, tag))
-		# for each span (entity): sample_id, entity, tag, sent_start, sent_end
-		# span_length = len(spanInfo[1].split(" "))
-		# span_pos = tuple2str(spanInfo)
-
-		# Sentence Length: sentLen
-		aspect = "sentLen"
-		if aspect in dict_aspect_func.keys():
-			dict_span2aspectVal["sentLen"][sent_pos] = float(sent_length)
-
-
-
-		# Tag: tag
-		aspect = "tag"
-		if aspect in dict_aspect_func.keys():
-			dict_span2aspectVal["tag"][sent_pos] = tag
-
-
-
-		# # span-length: eLen
-		# aspect = "eLen"
-		# if aspect in dict_aspect_func.keys():
-		# 	dict_span2aspectVal[aspect][span_pos] = span_length
-
-
-
-
-		sample_id += 1
-
-
-	#print(dict_span2aspectVal)
-	return  dict_span2aspectVal
-
-
-
-
-def new_metric_tc(corpus_type, delimiter, column_info,
-			   task2funcName,
-			   dict_aspect_func,
-			   dict_precomputed_path,
-			   fn_train,
-			   fn_test_results
-			   ):
-
-	#column_true_tag_train, column_true_tag_test, column_pred_tag_test = column_info
-
-	#sample_list_sent, sample_list_word, sample_list_span, sample_list_tag = read_data_atc(fn_train, -1)
-	sample_list_sent, sample_list_word, sample_list_span, sample_list_tag           = read_data_tc(fn_test_results, -2)
-	sample_list_sent, sample_list_word, sample_list_span_pred, sample_list_tag_pred = read_data_tc(fn_test_results, -1)
-
-
-
-
-
-
-
-
-	dict_span2aspectVal = {}
-	dict_span2aspectVal_pred = {}
-
-
-
-
-
-
-
-	dict_span2aspectVal      = eval(task2funcName)(sample_list_sent, sample_list_word, sample_list_span, sample_list_tag, dict_precomputed_path, dict_aspect_func)
-	dict_span2aspectVal_pred = eval(task2funcName)(sample_list_sent, sample_list_word, sample_list_span_pred, sample_list_tag_pred, dict_precomputed_path, dict_aspect_func)
-
-
-
-
-
-	def __selectBucktingFunc(func_name, func_setting, dict_obj):
-		if func_name == "bucketAttribute_SpecifiedBucketInterval":
-			return eval(func_name)(dict_obj, eval(func_setting))
-		elif func_name == "bucketAttribute_SpecifiedBucketValue":
-			if len(func_setting.split("\t"))!=2:
-				raise ValueError("selectBucktingFunc Error!")
-			n_buckets, specified_bucket_value_list = int(func_setting.split("\t")[0]), eval(func_setting.split("\t")[1])
-			return eval(func_name)(dict_obj, n_buckets, specified_bucket_value_list)
-		elif func_name == "bucketAttribute_DiscreteValue": # now the discrete value is R-tag..
-			if len(func_setting.split("\t"))!=2:
-				raise ValueError("selectBucktingFunc Error!")
-			tags_list = list(set(dict_obj.values()))
-			print("tags_list: ",tags_list)
-			print("len(tags_list): ",len(tags_list))
-			topK_buckets, min_buckets = int(func_setting.split("\t")[0]), int(func_setting.split("\t")[1])
-			#return eval(func_name)(dict_obj, min_buckets, topK_buckets)
-			return eval(func_name)(dict_obj, topK_buckets, min_buckets)
-
-
-
-	dict_bucket2span = {}
-	dict_bucket2span_pred = {}
-	dict_bucket2f1={}
-	aspect_names = []
-
-	for aspect, func in dict_aspect_func.items():
-		#print(aspect, dict_span2aspectVal[aspect])
-		dict_bucket2span[aspect]      = __selectBucktingFunc(func[0], func[1], dict_span2aspectVal[aspect])
-		# print(aspect, dict_bucket2span[aspect])
-		#exit()
-		dict_bucket2span_pred[aspect] =  bucketAttribute_SpecifiedBucketInterval(dict_span2aspectVal_pred[aspect], dict_bucket2span[aspect].keys())
-		dict_bucket2f1[aspect]  	  = getBucketF1(dict_bucket2span[aspect],  dict_bucket2span_pred[aspect])
-		aspect_names.append(aspect)
-	print("aspect_names: ",aspect_names)
-
-
-
-	return dict_bucket2f1, aspect_names
-
-
-
-def getAspectValue_re(sample_list_sent, sample_list_word, sample_list_span, sample_list_tag, dict_preComputed_path, dict_aspect_func):
-
-
-
-	dict_preComputed_model = {}
-	oDen_list, sentLen_list = [], []
-
-	for aspect, path in dict_preComputed_path.items():
-		print("path:\t"+path)
-		if os.path.exists(path):
-			print('load the hard dictionary of entity span in test set...')
-
-			if aspect == "tCon":
-				fread = open(path, 'rb')
-				dict_preComputed_model["tCon"], dict_preComputed_model["tFre"] = pickle.load(fread)
-			if aspect == "eCon":
-				fread = open(path, 'rb')
-				dict_preComputed_model["eCon"], dict_preComputed_model["eFre"] = pickle.load(fread)
-			if aspect == "oDen":
-				fread = open(path, 'rb')
-				_, oDen_list, sentLen_list = pickle.load(fread)
-
-		else:
-			raise ValueError("can not load hard dictionary" + aspect + "\t" + path)
-
-
-
-
-	dict_span2aspectVal = {}
-	for aspect, fun in dict_aspect_func.items():
-		dict_span2aspectVal[aspect] = {}
-
-
-	#print("-----sample_list_sent-----")
-	#print(sample_list_sent)
-
-	sample_id = 0
-	for  sent, word_list, spanInfo_list, tag in zip(sample_list_sent, sample_list_word, sample_list_span, sample_list_tag):
-
-		sent_length = len(word_list)
-		sent_pos = tuple2str((sample_id, tag))
-		span1_info, span2_info = spanInfo_list[0], spanInfo_list[1]
-		# for each span (entity): sample_id, entity, tag, sent_start, sent_end
-		spanDistance = span2_info[3] - span1_info[3]
-		span1_length = len(span1_info[1].split(" "))
-		span2_length = len(span2_info[1].split(" "))
-		span1_pos = tuple2str(span1_info)
-		span2_pos = tuple2str(span2_info)
-
-
-		# Sentence Length: sentLen
-		aspect = "sentLen"
-		if aspect in dict_aspect_func.keys():
-			dict_span2aspectVal["sentLen"][sent_pos] = float(sent_length)
-
-		# Span Distance: spanDis
-		aspect = "spanDis"
-		if aspect in dict_aspect_func.keys():
-			dict_span2aspectVal["spanDis"][sent_pos] = float(spanDistance)
-
-
-		# Tag: tag
-		aspect = "tag"
-		if aspect in dict_aspect_func.keys():
-			dict_span2aspectVal["tag"][sent_pos] = tag
-
-
-
-		# span-length: eLen
-		aspect = "eLen"
-		if aspect in dict_aspect_func.keys():
-			dict_span2aspectVal[aspect][span1_pos] = span1_length
-			dict_span2aspectVal[aspect][span2_pos] = span2_length
-
-
-
-
-		sample_id += 1
-
-
-	#print("-----dict_span2aspectVal-----")
-	#print(dict_span2aspectVal)
-	#exit()
-	return  dict_span2aspectVal
-
-
-
-
-def new_metric_re(corpus_type, delimiter, column_info,
-			   task2funcName,
-			   dict_aspect_func,
-			   dict_precomputed_path,
-			   fn_train,
-			   fn_test_results
-			   ):
-
-	#column_true_tag_train, column_true_tag_test, column_pred_tag_test = column_info
-
-	#sample_list_sent, sample_list_word, sample_list_span, sample_list_tag = read_data_re(fn_train)
-	sample_list_sent, sample_list_word, sample_list_span, sample_list_tag = read_data_re_test(fn_test_results, -2)
-	sample_list_sent, sample_list_word, sample_list_span_pred, sample_list_tag_pred = read_data_re_test(fn_test_results, -1)
-
-
-
-
-
-
-
-
-	dict_span2aspectVal = {}
-	dict_span2aspectVal_pred = {}
-
-
-
-
-
-
-
-	dict_span2aspectVal      = eval(task2funcName)(sample_list_sent, sample_list_word, sample_list_span, sample_list_tag, dict_precomputed_path, dict_aspect_func)
-	dict_span2aspectVal_pred = eval(task2funcName)(sample_list_sent, sample_list_word, sample_list_span_pred, sample_list_tag_pred, dict_precomputed_path, dict_aspect_func)
-
-
-
-
-
-	def __selectBucktingFunc(func_name, func_setting, dict_obj):
-		if func_name == "bucketAttribute_SpecifiedBucketInterval":
-			return eval(func_name)(dict_obj, eval(func_setting))
-		elif func_name == "bucketAttribute_SpecifiedBucketValue":
-			if len(func_setting.split("\t"))!=2:
-				raise ValueError("selectBucktingFunc Error!")
-			n_buckets, specified_bucket_value_list = int(func_setting.split("\t")[0]), eval(func_setting.split("\t")[1])
-			return eval(func_name)(dict_obj, n_buckets, specified_bucket_value_list)
-		elif func_name == "bucketAttribute_DiscreteValue": # now the discrete value is R-tag..
-			if len(func_setting.split("\t"))!=2:
-				raise ValueError("selectBucktingFunc Error!")
-			tags_list = list(set(dict_obj.values()))
-			print("tags_list: ",tags_list)
-			print("len(tags_list): ",len(tags_list))
-			topK_buckets, min_buckets = int(func_setting.split("\t")[0]), int(func_setting.split("\t")[1])
-			#return eval(func_name)(dict_obj, min_buckets, topK_buckets)
-			return eval(func_name)(dict_obj, topK_buckets, min_buckets)
-
-
-
-	dict_bucket2span = {}
-	dict_bucket2span_pred = {}
-	dict_bucket2f1={}
-	aspect_names = []
-
-	for aspect, func in dict_aspect_func.items():
-		#print(aspect, dict_span2aspectVal[aspect])
-		dict_bucket2span[aspect]      = __selectBucktingFunc(func[0], func[1], dict_span2aspectVal[aspect])
-		# print(aspect, dict_bucket2span[aspect])
-		#exit()
-		dict_bucket2span_pred[aspect] =  bucketAttribute_SpecifiedBucketInterval(dict_span2aspectVal_pred[aspect], dict_bucket2span[aspect].keys())
-		dict_bucket2f1[aspect]  	  = getBucketF1(dict_bucket2span[aspect],  dict_bucket2span_pred[aspect])
-		aspect_names.append(aspect)
-	print("aspect_names: ",aspect_names)
-
-
-
-	return dict_bucket2f1, aspect_names
-
-
-
-
-
-
-
-
-
-def read_data_match(path_file, col):
-
-	sample_list_sent1 = []
-	sample_list_sent2 = []
-	sample_list_word1 = []
-	sample_list_word2 = []
-	sample_list_tag = []
-
-	fin = open(path_file, "r")
-	#all_samples = fin.read()
-	#col = -1
-
-	#for sample_id, sample in enumerate(all_samples.split("\n")):
-	for sample_id, sample in enumerate(fin):
-
-		sample = sample.rstrip("\n")
-
-		sent1 = sample.split("\t")[0]
-		sent2 = sample.split("\t")[1]
-		tag = sample.split("\t")[col]
-
-
-
-
-		sample_list_sent1.append(sent1)
-		sample_list_sent2.append(sent2)
-		sample_list_word1.append(sent1.split(" "))
-		sample_list_word2.append(sent2.split(" "))
-		sample_list_tag.append(tag)
-		# sample_list_span.append(span_info)
-	#print(sample_list_sent)
-	return sample_list_sent1, sample_list_sent2, sample_list_word1, sample_list_word2, sample_list_tag
-
-
-
-
-def getAspectValue_match(sample_list_sent1, sample_list_sent2, sample_list_word1, sample_list_word2, sample_list_tag, dict_preComputed_path, dict_aspect_func):
-
-
-
-	dict_preComputed_model = {}
-	oDen_list, sentLen_list = [], []
-
-	for aspect, path in dict_preComputed_path.items():
-		print("path:\t"+path)
-		if os.path.exists(path):
-			print('load the hard dictionary of entity span in test set...')
-
-			if aspect == "tCon":
-				fread = open(path, 'rb')
-				dict_preComputed_model["tCon"], dict_preComputed_model["tFre"] = pickle.load(fread)
-			if aspect == "eCon":
-				fread = open(path, 'rb')
-				dict_preComputed_model["eCon"], dict_preComputed_model["eFre"] = pickle.load(fread)
-			if aspect == "oDen":
-				fread = open(path, 'rb')
-				_, oDen_list, sentLen_list = pickle.load(fread)
-
-		else:
-			raise ValueError("can not load hard dictionary" + aspect + "\t" + path)
-
-
-
-
-	dict_span2aspectVal = {}
-	for aspect, fun in dict_aspect_func.items():
-		dict_span2aspectVal[aspect] = {}
-
-
-	#print("-----sample_list_sent-----")
-	#print(sample_list_sent)
-
-	sample_id = 0
-	for  sent1, sent2, word_list1, word_list2, tag in zip(sample_list_sent1, sample_list_sent2, sample_list_word1, sample_list_word2, sample_list_tag):
-
-
-
-
-		sent1_length = len(word_list1)
-		sent2_length = len(word_list2)
-		sent_pos = tuple2str((sample_id, tag))
-
-
-
-
-
-		# Sentence Length: sentALen
-		aspect = "sentALen"
-		if aspect in dict_aspect_func.keys():
-			dict_span2aspectVal["sentALen"][sent_pos] = float(sent1_length)
-
-
-		# Sentence Length: sentBLen
-		aspect = "sentBLen"
-		if aspect in dict_aspect_func.keys():
-			dict_span2aspectVal["sentBLen"][sent_pos] = float(sent2_length)
-
-
-		# The difference of sentence length: senDeltaLen
-		aspect = "senDeltaLen"
-		if aspect in dict_aspect_func.keys():
-			dict_span2aspectVal["senDeltaLen"][sent_pos] = float(sent1_length-sent2_length)
-
-
-		# Tag: tag
-		aspect = "tag"
-		if aspect in dict_aspect_func.keys():
-			dict_span2aspectVal["tag"][sent_pos] = tag
-
-
-
-
-		sample_id += 1
-
-
-	#print(dict_span2aspectVal)
-	return  dict_span2aspectVal
-
-
-
-
-def new_metric_match(corpus_type, delimiter, column_info,
-			   task2funcName,
-			   dict_aspect_func,
-			   dict_precomputed_path,
-			   fn_train,
-			   fn_test_results
-			   ):
-
-	#column_true_tag_train, column_true_tag_test, column_pred_tag_test = column_info
-
-	#sample_list_sent, sample_list_word, sample_list_span, sample_list_tag = read_data_atc(fn_train, -1)
-	sample_list_sent1, sample_list_sent2, sample_list_word1, sample_list_word2, sample_list_tag      = read_data_match(fn_test_results, -2)
-	sample_list_sent1, sample_list_sent2, sample_list_word1, sample_list_word2, sample_list_tag_pred = read_data_match(fn_test_results, -1)
-
-
-
-
-
-
-
-
-	dict_span2aspectVal = {}
-	dict_span2aspectVal_pred = {}
-
-
-
-
-
-
-
-	dict_span2aspectVal      = eval(task2funcName)(sample_list_sent1, sample_list_sent2, sample_list_word1, sample_list_word2, sample_list_tag, dict_precomputed_path, dict_aspect_func)
-	dict_span2aspectVal_pred = eval(task2funcName)(sample_list_sent1, sample_list_sent2, sample_list_word1, sample_list_word2, sample_list_tag_pred, dict_precomputed_path, dict_aspect_func)
-
-
-
-
-
-	def __selectBucktingFunc(func_name, func_setting, dict_obj):
-		if func_name == "bucketAttribute_SpecifiedBucketInterval":
-			return eval(func_name)(dict_obj, eval(func_setting))
-		elif func_name == "bucketAttribute_SpecifiedBucketValue":
-			if len(func_setting.split("\t"))!=2:
-				raise ValueError("selectBucktingFunc Error!")
-			n_buckets, specified_bucket_value_list = int(func_setting.split("\t")[0]), eval(func_setting.split("\t")[1])
-			return eval(func_name)(dict_obj, n_buckets, specified_bucket_value_list)
-		elif func_name == "bucketAttribute_DiscreteValue": # now the discrete value is R-tag..
-			if len(func_setting.split("\t"))!=2:
-				raise ValueError("selectBucktingFunc Error!")
-			tags_list = list(set(dict_obj.values()))
-			print("tags_list: ",tags_list)
-			print("len(tags_list): ",len(tags_list))
-			topK_buckets, min_buckets = int(func_setting.split("\t")[0]), int(func_setting.split("\t")[1])
-			#return eval(func_name)(dict_obj, min_buckets, topK_buckets)
-			return eval(func_name)(dict_obj, topK_buckets, min_buckets)
-
-
-
-	dict_bucket2span = {}
-	dict_bucket2span_pred = {}
-	dict_bucket2f1={}
-	aspect_names = []
-
-	for aspect, func in dict_aspect_func.items():
-		#print(aspect, dict_span2aspectVal[aspect])
-		dict_bucket2span[aspect]      = __selectBucktingFunc(func[0], func[1], dict_span2aspectVal[aspect])
-		# print(aspect, dict_bucket2span[aspect])
-		#exit()
-		dict_bucket2span_pred[aspect] =  bucketAttribute_SpecifiedBucketInterval(dict_span2aspectVal_pred[aspect], dict_bucket2span[aspect].keys())
-		dict_bucket2f1[aspect]  	  = getBucketF1(dict_bucket2span[aspect],  dict_bucket2span_pred[aspect])
-		aspect_names.append(aspect)
-	print("aspect_names: ",aspect_names)
-
-
-
-	return dict_bucket2f1, aspect_names
-
-
-
-
-
-
-def getAspectValue_cws(test_word_sequences, test_trueTag_sequences, test_word_sequences_sent,
-				   test_trueTag_sequences_sent, dict_preComputed_path, dict_aspect_func):
-
-
-
-	dict_preComputed_model = {}
-	oDen_list, sentLen_list = [], []
-
-	for aspect, path in dict_preComputed_path.items():
-		print("path:\t"+path)
-		if os.path.exists(path):
-			print('load the hard dictionary of entity span in test set...')
-
-			if aspect == "tCon":
-				fread = open(path, 'rb')
-				dict_preComputed_model["tCon"], dict_preComputed_model["tFre"] = pickle.load(fread)
-			if aspect == "eCon":
-				fread = open(path, 'rb')
-				dict_preComputed_model["eCon"], dict_preComputed_model["eFre"] = pickle.load(fread)
-			if aspect == "oDen":
-				fread = open(path, 'rb')
-				_, oDen_list, sentLen_list = pickle.load(fread)
-
-		else:
-			raise ValueError("can not load hard dictionary" + aspect + "\t" + path)
-
-
-
-
-	dict_span2aspectVal = {}
-	for aspect, fun in dict_aspect_func.items():
-		dict_span2aspectVal[aspect] = {}
-
-
-
-
-	dict_pos2sid = getPos2SentId(test_word_sequences_sent)
-	all_chunks = get_chunks(test_trueTag_sequences)
-
-	for span_info in all_chunks:
-
-		span_type = span_info[0].lower()
-		#print(span_type)
-		idx_start = span_info[1]
-		idx_end = span_info[2]
-		span_cnt = ' '.join(test_word_sequences[idx_start:idx_end]).lower()
-		span_pos = str(idx_start) + "_" + str(idx_end) + "_" + span_type
-
-		span_length = idx_end - idx_start
-
-		span_token_list = test_word_sequences[idx_start:idx_end]
-		span_token_pos_list = [ str(pos) + "_" + span_type for pos in range(idx_start, idx_end)]
-
-
-		span_sentid = dict_pos2sid[idx_start]
-
-
-		# Span-level Ambiguity: tamb_span
-
-		aspect = "eCon"
-		if aspect in dict_aspect_func.keys():
-			preCompute_ambSpan = dict_preComputed_model[aspect]
-			span_amb_value = 0.0
-			if span_cnt in preCompute_ambSpan:
-				if span_type.lower() in preCompute_ambSpan[span_cnt]:
-					span_amb_value = preCompute_ambSpan[span_cnt][span_type]
-			dict_span2aspectVal[aspect][span_pos] = span_amb_value
-
-
-		# Token-level Ambiguity: tamb_token
-		aspect = "tCon"
-		if aspect in dict_aspect_func.keys():
-			preCompute_ambToken = dict_preComputed_model[aspect]
-			token_amb_value = 0.0
-			for token, token_pos  in zip(span_token_list, span_token_pos_list):
-				if token.lower() in preCompute_ambToken:
-					if span_type.lower() in  preCompute_ambToken[token.lower()]:
-						token_amb_value = preCompute_ambToken[token.lower()][span_type]
-				dict_span2aspectVal[aspect][token_pos] = token_amb_value
-
-
-		# Span-level Frequency: fre_span
-		aspect = "eFre"
-		if aspect in dict_aspect_func.keys():
-			preCompute_freqSpan = dict_preComputed_model[aspect]
-			span_fre_value = 0.0
-			if span_cnt in preCompute_freqSpan:
-				span_fre_value = preCompute_freqSpan[span_cnt]
-			dict_span2aspectVal[aspect][span_pos] = span_fre_value
-
-
-		# Token-level Frequency: fre_token
-		aspect = "tFre"
-		if aspect in dict_aspect_func.keys():
-			preCompute_freqToken = dict_preComputed_model[aspect]
-			token_fre_value = 0.0
-			for token, token_pos  in zip(span_token_list, span_token_pos_list):
-				if token.lower() in preCompute_freqToken:
-					token_fre_value = preCompute_freqToken[token.lower()]
-				dict_span2aspectVal[aspect][token_pos] = token_fre_value
-
-
-
-		# Entity Length: eLen
-		aspect = "eLen"
-		if aspect in dict_aspect_func.keys():
-			dict_span2aspectVal["eLen"][span_pos] = span_length
-
-
-
-		# Sentence Length: sentLen
-		aspect = "sLen"
-		if aspect in dict_aspect_func.keys():
-			dict_span2aspectVal["sLen"][span_pos] = float(sentLen_list[span_sentid])
-
-
-		# Entity Density: eDen
-		aspect = "eDen"
-		if aspect in dict_aspect_func.keys():
-			dict_span2aspectVal["eDen"][span_pos] = float(eDen_list[span_sentid])
-
-		# OOV Density: oDen
-		aspect = "oDen"
-		if aspect in dict_aspect_func.keys():
-			dict_span2aspectVal["oDen"][span_pos] = float(oDen_list[span_sentid])
-
-		# Tag: tag
-		aspect = "tag"
-		if aspect in dict_aspect_func.keys():
-			dict_span2aspectVal["tag"][span_pos] = span_type
-
-
-	return  dict_span2aspectVal
-
-
 
 
 
@@ -1863,8 +1004,8 @@ def new_metric(corpus_type, delimiter, column_info,
 	delimiter = ' '
 	if 'crfpp' in fn_test_results:
 		delimiter ='\t'
-	print('delimiter',delimiter)
-	print('column_no: ',column_no)
+	# print('delimiter',delimiter)
+	# print('column_no: ',column_no)
 
 
 
@@ -1930,95 +1071,6 @@ def new_metric(corpus_type, delimiter, column_info,
 
 
 
-# def draw_f1_fig(model_names,metric_values,metric_name,corpus_type):
-# 	print('metric_name',metric_name)
-# 	print('metric_values',metric_values)
-# 	label_list = metric_values[0].keys()
-# 	# print('label_list',label_list)
-# 	num_lists=[]
-# 	for metric_dic in metric_values:
-# 		num_list =[]
-# 		for key,value in metric_dic.items():
-# 			num_list.append(value)
-# 		num_lists.append(num_list)
-
-
-
-# 	plt.figure(figsize=(15, 8))
-# 	width = 0.08
-# 	total_width, n = width * len(model_names), len(model_names)
-
-
-# 	# total_width, n = 0.2*len(model_names), len(model_names)
-# 	# width = total_width / n
-# 	x = np.arange(len(num_lists[0])) + 1
-# 	x = x - (total_width - width)
-
-
-
-# 	print('x',x)
-# 	"""
-# 	绘制条形图
-# 	left:长条形中点横坐标
-# 	height:长条形高度
-# 	width:长条形宽度，默认值0.8
-# 	label:为后面设置legend准备
-# 	"""
-# 	rects = []
-# 	colors = ['#ED7D31', '#A5A5A5', '#FFC000', '#5B9BD5', '#71AD47', '#264478', '#9E480D', '#636363', '#997300',
-# 					  '#255E91', '#43682B', '#698ED0', '#F1975A', '#B7B7B7', '#FFCD32', '#8CC168', '#8CC168',
-# 				'#ED7D31', '#A5A5A5', '#FFC000', '#5B9BD5', '#71AD47', '#264478', '#9E480D', '#636363', '#997300',
-# 			  '#255E91', '#43682B', '#698ED0', '#F1975A', '#B7B7B7', '#FFCD32', '#8CC168', '#8CC168',
-# 				'#ED7D31', '#A5A5A5','#FFC000', '#5B9BD5', '#71AD47', '#264478', '#9E480D', '#636363', '#997300',
-# 			  '#255E91', '#43682B', '#698ED0', '#F1975A', '#B7B7B7', '#FFCD32', '#8CC168', '#8CC168'
-# 			  ]
-# 	# if metric_name == 'phoSpan_block_acc':
-# 	for j,(num_list,model_name,color) in enumerate(zip(num_lists,model_names,colors)):
-# 		print('metric_name',metric_name)
-# 		print('num_list',num_list)
-# 		print('j',j)
-# 		num_list = [float(y) for y in num_list]
-# 		# rects.append(plt.bar(left=[xx+j*0.4 for xx in x], height=num_list, width=0.4, color=color, label=model_name))
-# 		rects.append(plt.bar(x+j*width, num_list, width=width,color=color, label=model_name))
-# 		# rects.append(plt.bar(np.arange(len(num_list)) +0.4*j, num_list, width=0.4, color=color,label=model_name))
-
-
-
-# 	# for j,(num_list,model_name,color) in enumerate(zip(deta_highss,model_names[1:],colors)):
-# 	# 	print('metric_name',metric_name)
-# 	# 	print('num_list',num_list)
-# 	# 	print('j',j)
-# 	# 	num_list = [float(y) for y in num_list]
-# 	# 	# rects.append(plt.bar(left=[xx+j*0.4 for xx in x], height=num_list, width=0.4, color=color, label=model_name))
-# 	# 	rects.append(plt.bar(x+j*width, num_list, width=width,color=color, label=model_name))
-# 	# 	# rects.append(plt.bar(np.arange(len(num_list)) +0.4*j, num_list, width=0.4, color=color,label=model_name))
-
-
-# 	plt.ylim(0, 100)  # y轴取值范围
-# 	if metric_name =='sent_MaskedToken_bertp_accu' or metric_name =='sent_length_block_acc' \
-# 			or metric_name =='entityToken_density_block_acc' or metric_name =='oov_density_block_acc':
-# 		plt.ylim(50, 100)
-# 	plt.ylabel("Accuracy")
-# 	"""
-# 	设置x轴刻度显示值
-# 	参数一：中点坐标
-# 	参数二：显示值
-# 	"""
-# 	plt.xticks(x+0.5*n*width,label_list)
-# 	plt.xlabel("Baskets")
-# 	plt.title(metric_name)
-# 	plt.legend()  # 设置题注
-# 	# # 编辑文本
-# 	# for rects1 in rects:
-# 	# 	for rect in rects1:
-# 	# 		height = rect.get_height()
-# 	# 		plt.text(rect.get_x() + rect.get_width() / 2.0, height + 1, str(height), ha="center", va="bottom")
-
-# 	plt.show()
-# 	save_path = 'new_metric/draw_f1/' + corpus_type + '_'  +metric_name +'_'+ 'f1_0917_2310.pdf'
-
-# 	plt.savefig(save_path)
-# 	plt.close()
 
 def return_idx_range(attr_ranges,index):
 	idx_range =''
@@ -2047,15 +1099,15 @@ def get_selectBucket_xyvalue_minmax_4bucket(corpus_type,
 			midx1 = p
 		if seltAlwaysBad_m2 in model_name:
 			midx2 = p
-	print('midx1, midx2', midx1, midx2)
-	print("seltAlwaysGood_m1: ",seltAlwaysGood_m1)
-	print('seltAlwaysBad_m2: ',seltAlwaysBad_m2)
-	print('model_names: ',model_names)
+	# print('midx1, midx2', midx1, midx2)
+	# print("seltAlwaysGood_m1: ",seltAlwaysGood_m1)
+	# print('seltAlwaysBad_m2: ',seltAlwaysBad_m2)
+	# print('model_names: ',model_names)
 
 	model1 = metric_values[midx1]
 	model2 = metric_values[midx2]
 	selectedBuckets = []
-	print('len(model1)', len(model1))
+	# print('len(model1)', len(model1))
 
 	select_bucket_min_idx = []
 	select_bucket_max_idx = []
@@ -2063,8 +1115,8 @@ def get_selectBucket_xyvalue_minmax_4bucket(corpus_type,
 	return_string_list = []
 	return_deta_heatmap_list = []
 	for j, (metric1, metric2) in enumerate(zip(model1, model2)):
-		print('metric_names: ',metric_names[j])
-		print("metric1: ",metric1)
+		# print('metric_names: ',metric_names[j])
+		# print("metric1: ",metric1)
 		attr_ranges = list(metric1.keys())
 		list11 = list(metric1.values())
 		list22 = list(metric2.values())
@@ -2079,8 +1131,8 @@ def get_selectBucket_xyvalue_minmax_4bucket(corpus_type,
 		detas_subs = []
 		detas_subs_B = []
 		self_diag = ''
-		print('list1: ',list1)
-		print('list2: ', list2)
+		# print('list1: ',list1)
+		# print('list2: ', list2)
 		# select reversal bucket ...
 		for i in range(len(list1)):
 			sub = float(list1[i]) - float(list2[i])
@@ -2089,9 +1141,9 @@ def get_selectBucket_xyvalue_minmax_4bucket(corpus_type,
 				detas_subs_B.append(0)
 			else:
 				detas_subs_B.append(sub/float(list2[i]) )
-		print()
-		print('detas_subs: ',detas_subs_B)
-		print()
+		# print()
+		# print('detas_subs: ',detas_subs_B)
+		# print()
 		return_deta_heatmap_list.append(detas_subs_B)
 		bucket_lengths.append(len(detas_subs))
 		index = -1
@@ -2108,9 +1160,9 @@ def get_selectBucket_xyvalue_minmax_4bucket(corpus_type,
 				max_value=0.0
 				max_deta_idx=0
 
-			print("attr_ranges: ",attr_ranges)
-			print("min_deta_idx: ",min_deta_idx)
-			print("max_deta_idx: ",max_deta_idx)
+			# print("attr_ranges: ",attr_ranges)
+			# print("min_deta_idx: ",min_deta_idx)
+			# print("max_deta_idx: ",max_deta_idx)
 
 			# begin{aided-diagnosis, return the best & worse index bucket for the 4 layers results}
 			worse_bucket_xlabel = return_4bucket_xsticks(min_deta_idx,metric_names[j],dic_tag_idx)
@@ -2132,14 +1184,14 @@ def get_selectBucket_xyvalue_minmax_4bucket(corpus_type,
 			worse_index = list1.index(worse_bucket)
 
 			self_diag1 = float(best_buctet) - float(worse_bucket)
-			print('worse_bucket:', worse_bucket)
-			print('best_buctet:', best_buctet)
-			print('self_diag:', self_diag1)
+			# print('worse_bucket:', worse_bucket)
+			# print('best_buctet:', best_buctet)
+			# print('self_diag:', self_diag1)
 
 			# begin{self-diagnosis, return the best & worse index bucket for the 4 layers results}
 			worse_bucket_xlabel = return_4bucket_xsticks(worse_index,metric_names[j],dic_tag_idx)
 			best_bucket_xlabel = return_4bucket_xsticks(best_index,metric_names[j],dic_tag_idx)
-			print("attr_ranges[best_index]: ",attr_ranges[best_index])
+			# print("attr_ranges[best_index]: ",attr_ranges[best_index])
 			# string1 = metric_names[j]+'\t'+ worse_bucket_xlabel+':'+str(worse_bucket)+ ':' +return_idx_range(attr_ranges,worse_index)+'\t'+best_bucket_xlabel+':'+str(best_buctet)+ ':' +return_idx_range(attr_ranges,best_index)+'\t'+ str(self_diag1)
 			string1 = metric_names[j]+'\t'+ worse_bucket_xlabel+':'+str(worse_bucket)+' '+best_bucket_xlabel+':'+str(best_buctet)+' '+ str(self_diag1)
 			return_string_list.append(string1)
@@ -2252,7 +1304,7 @@ def write_breakDown_performance(corpus_type, model_names, stdModels_metrics,metr
 				string33=''
 				string4bkv=''
 				idx = 0
-				print('metric_result: ',metric_result)
+				# print('metric_result: ',metric_result)
 				for range1, f1_score in metric_result.items():
 					#xlabel = idx_dic[idx]
 					xlabel = str(idx)
@@ -2273,7 +1325,7 @@ def write_breakDown_performance(corpus_type, model_names, stdModels_metrics,metr
 			else:
 				string33=''
 				string4bkv=''
-				print('metric_result: ',metric_result)
+				# print('metric_result: ',metric_result)
 				xlabel=0
 				for range1, f1_score in metric_result.items():
 					tag=str(range1).split(',')[0][1:]
@@ -2326,9 +1378,9 @@ if __name__ == '__main__':
 
 	args = parser.parse_args()
 
-	print('args.data_list', args.data_list[0].split(" "))  ######### note the split(" ") for data_list
-	print('args.model_list', args.model_list)
-	print('args.resfile_list', args.resfile_list[0].split(" "))
+	# print('args.data_list', args.data_list[0].split(" "))  ######### note the split(" ") for data_list
+	# print('args.model_list', args.model_list)
+	# print('args.resfile_list', args.resfile_list[0].split(" "))
 
 	if len(args.model_list) * len(args.data_list[0].split(" ")) != len(args.resfile_list[0].split(" ")):
 		raise ValueError('Lengs of the args.model_list, args.data_list, and args.resfile_list must be the same.s ')
@@ -2348,8 +1400,8 @@ if __name__ == '__main__':
 
 	dict_aspect_func = loadConf(path_aspect_conf)
 	metric_names = list(dict_aspect_func.keys())
-	print("dict_aspect_func: ", dict_aspect_func)
-	print(dict_aspect_func)
+	# print("dict_aspect_func: ", dict_aspect_func)
+	# print(dict_aspect_func)
 
 	spears = []
 	radar_xticks =[]
@@ -2366,7 +1418,7 @@ if __name__ == '__main__':
 
 	filename = '-'.join(model_names)
 	fn_write_buckect_value = 'analysis/'+args.path_fig+'/'+filename+'/bucket.range'
-	print('fn_write_buckect_value: ',fn_write_buckect_value)
+	# print('fn_write_buckect_value: ',fn_write_buckect_value)
 
 	ensureDir(fn_write_buckect_value.replace('/bucket.range',""))
 	fwrite_buckect_value = open(fn_write_buckect_value, 'w')
@@ -2398,18 +1450,18 @@ if __name__ == '__main__':
 				dict_preComputed_path[
 					aspect] = args.path_preComputed + "/" + corpus_type + '_' + aspect + ".pkl"
 
-		if corpus_type == 'conll03':
-			column_no = -2
-			delimiter = ' '
-			pos_column = 1
-		elif corpus_type == 'wnut16':
-			column_no = -1
-			delimiter = '\t'
-			pos_column = 0
-		elif corpus_type in ['notebn', 'notebc','notewb','notemz','notenw','notetc']:
-			column_no = 3
-			delimiter = ' '
-			pos_column = 2
+		# if corpus_type == 'conll03':
+		# 	column_no = -2
+		# 	delimiter = ' '
+		# 	pos_column = 1
+		# elif corpus_type == 'wnut16':
+		# 	column_no = -1
+		# 	delimiter = '\t'
+		# 	pos_column = 0
+		# elif corpus_type in ['notebn', 'notebc','notewb','notemz','notenw','notetc']:
+		# 	column_no = 3
+		# 	delimiter = ' '
+		# 	pos_column = 2
 
 
 		# Task-dependent functions for Aspect-value Caculation
@@ -2444,8 +1496,8 @@ if __name__ == '__main__':
 			column_info = [3, -2, -1]
 			delimiter = " "
 
-		print("column_info")
-		print(column_info)
+		# print("column_info")
+		# print(column_info)
 
 
 
@@ -2542,9 +1594,9 @@ if __name__ == '__main__':
 		return_deta_heatmap_lists =[]
 		# begin select bucket ...
 		# operation='self_diagnose';  reversal; max; min
-		print('corpus_type:', corpus_type)
-		print('###########################____select_buckets____#######################')
-		print('#####compare CcnnWglove_lstmCrf self diagnose, model is: CcnnWglove_lstmCrf, CcnnWglove_lstmCrf...')
+		# print('corpus_type:', corpus_type)
+		# print('###########################____select_buckets____#######################')
+		# print('#####compare CcnnWglove_lstmCrf self diagnose, model is: CcnnWglove_lstmCrf, CcnnWglove_lstmCrf...')
 		string1 = "# self-diagnosis \n"
 		fwrite_evaluate.write(string1)
 		for mn1 in model_names:
@@ -2573,7 +1625,7 @@ if __name__ == '__main__':
 		# end{write the CcnnWglove_lstmCrf self-diagnosis into the file...}s
 
 
-		print('aided-diagnosis: compare lstm&cnn, model is: CcnnWglove_lstmCrf, CcnnWglove_cnnCrf...')
+		# print('aided-diagnosis: compare lstm&cnn, model is: CcnnWglove_lstmCrf, CcnnWglove_cnnCrf...')
 		seltAlwaysGood_m1=model_names[0]
 		seltAlwaysBad_m2=model_names[1]
 		sub_modelname= seltAlwaysGood_m1+'_' +seltAlwaysBad_m2

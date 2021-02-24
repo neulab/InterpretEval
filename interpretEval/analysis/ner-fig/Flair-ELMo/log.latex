@@ -1,7 +1,7 @@
 This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex)
  restricted \write18 enabled.
 entering extended mode
-(./wnut16-Flair-breakdown-tag.tex
+(./wnut16-Flair_ELMo-aideddiag.tex
 LaTeX2e <2018-04-01> patch level 2
 Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
 (/usr/local/texlive/2018/texmf-dist/tex/latex/standalone/standalone.cls
@@ -264,7 +264,7 @@ s/tikzlibraryarrows.code.tex
 code.tex)))
 (/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarybackgrounds.code.tex)
-No file wnut16-Flair-breakdown-tag.aux.
+No file wnut16-Flair_ELMo-aideddiag.aux.
 (/usr/local/texlive/2018/texmf-dist/tex/latex/lm/ot1lmr.fd)
 (/usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -283,3 +283,14 @@ Package pgfplots notification 'compat/show suggested version=true': document ha
 s been generated with the most recent feature set (\pgfplotsset{compat=1.16}).
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/lm/omllmm.fd)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/lm/omslmsy.fd)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/lm/omxlmex.fd)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd) [1{/usr/local/t
+exlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+(./wnut16-Flair_ELMo-aideddiag.aux) ){/usr/local/texlive/2018/texmf-dist/fonts/
+enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/
+lm/lm-rm.enc}</usr/local/texlive/2018/texmf-dist/fonts/type1/public/lm/lmr10.pf
+b></usr/local/texlive/2018/texmf-dist/fonts/type1/public/lm/lmsy10.pfb>
+Output written on wnut16-Flair_ELMo-aideddiag.pdf (1 page, 31444 bytes).
+Transcript written on wnut16-Flair_ELMo-aideddiag.log.

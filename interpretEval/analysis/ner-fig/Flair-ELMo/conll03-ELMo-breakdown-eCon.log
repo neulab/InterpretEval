@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.1.14)  24 FEB 2021 13:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.1.14)  24 FEB 2021 13:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -830,17 +830,17 @@ cked plots unsupported (yet).
 {/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 (./conll03-ELMo-breakdown-eCon.aux) ) 
 Here is how much of TeX's memory you used:
- 25351 strings out of 492649
- 671116 string characters out of 6129622
- 834837 words of memory out of 5000000
- 28763 multiletter control sequences out of 15000+600000
+ 25353 strings out of 492649
+ 671168 string characters out of 6129622
+ 835206 words of memory out of 5000000
+ 28765 multiletter control sequences out of 15000+600000
  19138 words of font info for 32 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 78i,10n,136p,723b,2021s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 78i,10n,136p,723b,2025s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2018/texmf-dist/fonts/
 enc/dvips/lm/lm-rm.enc}</usr/local/texlive/2018/texmf-dist/fonts/type1/public/l
 m/lmr10.pfb>
-Output written on conll03-ELMo-breakdown-eCon.pdf (1 page, 25437 bytes).
+Output written on conll03-ELMo-breakdown-eCon.pdf (1 page, 25856 bytes).
 PDF statistics:
  16 PDF objects out of 1000 (max. 8388607)
  11 compressed objects within 1 object stream

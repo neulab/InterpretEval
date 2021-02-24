@@ -10,21 +10,21 @@ path_aspect_conf=$base_dir$task_type"/conf."$task_type"-attributes"
 
 
 # Part1: Dataset Name
-# datasets[0]="conll03"
-# datasets[1]="wnut16"
+datasets[0]="conll03"
+datasets[1]="wnut16"
 
-datasets[0]="conll03test"
+# datasets[0]="conll03test"
 # Part2: Model Name
 model1="Flair"
 model2="ELMo"
 # Part3: Path of result files
-# resfiles[0]=$base_dir$task_type"/conll03/results/connl03_CflairWglove_lstmCrf_9303.txt"
-# resfiles[1]=$base_dir$task_type"/conll03/results/connl03_CelmoWglove_lstmCrf_9222.txt"
-# resfiles[2]=$base_dir$task_type"/wnut16/results/wnut16_CflairWglove_lstmCrf_27707443_4596.txt"
-# resfiles[3]=$base_dir$task_type"/wnut16/results/wnut16_CelmoWglove_lstmCrf_29275447_4533.txt"
+resfiles[0]=$base_dir$task_type"/conll03/results/connl03_CflairWglove_lstmCrf_9303.txt"
+resfiles[1]=$base_dir$task_type"/conll03/results/connl03_CelmoWglove_lstmCrf_9222.txt"
+resfiles[2]=$base_dir$task_type"/wnut16/results/wnut16_CflairWglove_lstmCrf_27707443_4596.txt"
+resfiles[3]=$base_dir$task_type"/wnut16/results/wnut16_CelmoWglove_lstmCrf_29275447_4533.txt"
 
-resfiles[0]=$base_dir$task_type"/conll03test/results/connl03test_CflairWglove_lstmCrf_9303.txt"
-resfiles[1]=$base_dir$task_type"/conll03test/results/connl03test_CelmoWglove_lstmCrf_9222.txt"
+# resfiles[0]=$base_dir$task_type"/conll03test/results/connl03test_CflairWglove_lstmCrf_9303.txt"
+# resfiles[1]=$base_dir$task_type"/conll03test/results/connl03test_CelmoWglove_lstmCrf_9222.txt"
 
 
 

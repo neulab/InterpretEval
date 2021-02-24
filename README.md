@@ -141,7 +141,7 @@ Take CoNLL-2003 datasets as an example.
 
 - Put the result-file of your model on this path: `data/ner/conll03/results/`. In order to carry out model diagnosis, two or more model result files must be included. You can also choose one of the result files provided by us as the reference model.
 
-- Put the train-set which your result-file trained on the path: `data/ner/conll03//data/`. You need to set the column delimiter of your train-set and result-file in the `main()` function of `tensorEvaluation-ner.py`.
+- Put the train-set which your result-file trained on the path: `data/ner/conll03//data/`. 
 
 - Set the `path_data` (path of training set), `datasets[-]` (dataset name), `model1` (the first model's name), `model2` (the second model's name), `resfiles[-]` (the paths of the results) in `run_task_ner.sh` according to your data.
 

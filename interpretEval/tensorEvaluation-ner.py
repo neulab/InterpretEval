@@ -515,7 +515,8 @@ def getAspectValue(test_word_sequences, test_trueTag_sequences, test_word_sequen
 			fread = open(path, 'rb')
 			dict_preComputed_model[aspect] = pickle.load(fread)
 		else:
-			# raise ValueError("can not load hard dictionary" + aspect + "\t" + path)
+
+			print("Constructing Dictionary for aspect:\t" + aspect + " .....")
 			# Pre-computing
 			preCompute_aspect = eval('getPreComputed_' + aspect)(word_sequences_train, tag_sequences_train, path)
 			dict_preComputed_model[aspect] = preCompute_aspect
@@ -1325,7 +1326,7 @@ def write_breakDown_performance(corpus_type, model_names, stdModels_metrics,metr
 			else:
 				string33=''
 				string4bkv=''
-				# print('metric_result: ',metric_result)
+				print('metric_result: ',metric_result)
 				xlabel=0
 				for range1, f1_score in metric_result.items():
 					tag=str(range1).split(',')[0][1:]
@@ -1370,7 +1371,7 @@ if __name__ == '__main__':
 						help="the type of the task")
 	parser.add_argument('--path_fig', type=str, required=True, 
 						help="the type of the task")
-	parser.add_argument('--delimiter', type=str, required=True, 
+	parser.add_argument('--delimiter', type=str, required=False,
 	  help="the type of the interval")
 
 	
@@ -1433,8 +1434,7 @@ if __name__ == '__main__':
 		ensureDir(path_output_tensorEval)
 		fwrite_evaluate = open(fn_evaluate,'w+')
 		column_no = -1
-		# delimiter = ' '
-		delimiter = args.delimiter
+		delimiter = " "
 		pos_column = 0
 
 		fn_train = path_data +task_type + "/" + corpus_type +'/data/train.txt'
@@ -1485,16 +1485,16 @@ if __name__ == '__main__':
 		dict_task2newMetric["tc"] = "new_metric_tc"
 		dict_task2newMetric["match"] = "new_metric_match"
 		# Task-dependent formats for training and test results files.
-		delimiter = " "
+		# delimiter = " "
 		column_info = [-1, -2, -1]
 
 
 		if task_type+"_"+ corpus_type in set(["ner_conll03", "ner_wnut16", "pos_ptb2", "chunk_conll00"]):
 			column_info = [-1, -2, -1] # [x, y, z] : column_true_tag_train, column_true_tag_test, column_pred_tag_test
-			delimiter = " "
+			# delimiter = " "
 		elif task_type+"_"+ corpus_type in set(['ner_notebn', 'ner_notebc','ner_notewb','ner_notemz','ner_notenw','ner_notetc']):
 			column_info = [3, -2, -1]
-			delimiter = " "
+			# delimiter = " "
 
 		# print("column_info")
 		# print(column_info)

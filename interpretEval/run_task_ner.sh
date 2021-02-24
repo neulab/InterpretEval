@@ -2,29 +2,27 @@
 task_type="ner"
 base_dir="./data/"
 
-# path of training data
-#path_data="./data/"
 
 # path of conf file
 path_aspect_conf=$base_dir$task_type"/conf."$task_type"-attributes"
 
 
-# Part1: Dataset Name
+# Part1: Dataset Name:  you should put your training and test set in the directory, for example, ./data/conll03/ and name them as train.txt, test.txt, like this:
+# ./data/ner/conll03/data/train.txt
+# ./data/ner/conll03/data/txt.txt
 datasets[0]="conll03"
-datasets[1]="wnut16"
 
-# datasets[0]="conll03test"
-# Part2: Model Name
+
+
+# Part2: Model Name： Two model should be input. If only one, just copy it twice. e.g., model1 = "lstm"  model2 = "lstm"
 model1="Flair"
 model2="ELMo"
-# Part3: Path of result files
-resfiles[0]=$base_dir$task_type"/conll03/results/connl03_CflairWglove_lstmCrf_9303.txt"
-resfiles[1]=$base_dir$task_type"/conll03/results/connl03_CelmoWglove_lstmCrf_9222.txt"
-resfiles[2]=$base_dir$task_type"/wnut16/results/wnut16_CflairWglove_lstmCrf_27707443_4596.txt"
-resfiles[3]=$base_dir$task_type"/wnut16/results/wnut16_CelmoWglove_lstmCrf_29275447_4533.txt"
 
-# resfiles[0]=$base_dir$task_type"/conll03test/results/connl03test_CflairWglove_lstmCrf_9303.txt"
-# resfiles[1]=$base_dir$task_type"/conll03test/results/connl03test_CelmoWglove_lstmCrf_9222.txt"
+# Part3: Path of result files
+# ./data/ner/conll03/results/connl03_CflairWglove_lstmCrf_9303.txt
+# ./data/ner/conll03/results/connl03_CelmoWglove_lstmCrf_9222.txt
+resfiles[0]=$base_dir$task_type"/conll03/results/connl03_CflairWglove_lstmCrf_9303.txt"  # output of model1;  Format:  token true_label pred_label  (delimiter = " ")
+resfiles[1]=$base_dir$task_type"/conll03/results/connl03_CelmoWglove_lstmCrf_9222.txt"   # output of model2   Format:  token true_label pred_label  (delimiter = " ")
 
 
 
@@ -37,7 +35,7 @@ path_output_tensorEval="output_tensorEval/"$task_type/$model1"-"$model2
 
 # delimiter=get_value_from_frontend()
 
-delimiter="s"
+#delimiter="s" # suggested
 
 rm -fr $path_output_tensorEval/*
 echo "${datasets[*]}"
@@ -51,7 +49,7 @@ python3 tensorEvaluation-ner.py \
 	--path_aspect_conf $path_aspect_conf \
 	--resfile_list "${resfiles[*]}" \
 	--path_output_tensorEval $path_output_tensorEval \
-	--delimiter $delimiter 
+#	--delimiter $delimiter
 
 
 		       

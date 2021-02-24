@@ -139,13 +139,13 @@ The running process of the Chinese Word Segmentation task is similar.
 
 Take CoNLL-2003 datasets as an example.
 
-- Put the result-file of your model on this path: `data/ner/conll03/results/`. In order to carry out model diagnosis, two or more model result files must be included. You can also choose one of the result files provided by us as the reference model.
+- Put the result-file of your model on this path: `data/ner/conll03/results/` (It contains three columns separated by space: token, true-tag, and predicted-tag). In order to carry out model diagnosis, two or more model result files must be included. You can also choose one of the result files provided by us as the reference model.
 
-- Put the train-set which your result-file trained on the path: `data/ner/conll03//data/`. 
+- Name the train- and test-set (the dataset related to your result-file) as 'train.txt' and 'test.txt', and then put them on the path: `data/ner/conll03//data/`. You need to set which column is the token column and which column is the label column, and the separator in ``tensorEvaluation-ner.py''.
 
 - Set the `path_data` (path of training set), `datasets[-]` (dataset name), `model1` (the first model's name), `model2` (the second model's name), `resfiles[-]` (the paths of the results) in `run_task_ner.sh` according to your data.
 
-- Run: `./run_task_ner.sh`. The analysis results are on the path `output_tensorEval/ner/your_model_name/`.
+- Run: `./run_task_ner.sh`. The analysis results will be generated on the path `output_tensorEval/ner/your_model_name/`.
 
 #### 4.2.3 Note: 
 - **More than two result files are required.**  Because comparative-diagnosis is to compare the strengths and weaknesses of the model architectures and pre-trained knowledge between two or more models, it is necessary to input as least two model results. 

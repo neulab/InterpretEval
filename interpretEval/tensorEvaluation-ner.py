@@ -201,278 +201,12 @@ def findKey(dict_obj, x):
 
 
 
-def getPreComputed_eCon(train_word_sequences,tag_sequences_train,fnwrite_GoldenEntityHard):
-	if os.path.exists(fnwrite_GoldenEntityHard):
-		print('load the hard dictionary of entity span in test set...')
-		fread =open(fnwrite_GoldenEntityHard,'rb')
-		Hard_entitySpan_inTrain = pickle.load(fread)
-		return Hard_entitySpan_inTrain
-	else:
-		Hard_entitySpan_inTrain = dict()
-		chunks_train = set(get_chunks(tag_sequences_train))
-		tags = []
-		train_count = Counter(tag_sequences_train)
-		for tag_train, times in train_count.most_common():
-			if len(tag_train) > 1:
-				tag = tag_train.split('-')[1].lower()
-				if tag not in tags:
-					tags.append(tag)
-		tags.append('o')
-		print('len(tags)', len(tags))
-
-		# build the entity span in test set, and its label count in test set
-
-		count_idx = 0
-		print('len(chunks_test)',len(chunks_train))
-		word_sequences_train_str = ' '.join(train_word_sequences).lower()
-		for true_chunk in chunks_train:
-			# print('true_chunk',true_chunk)
-			count_idx += 1
-			print()
-			print('count:',count_idx)
-			type = true_chunk[0].lower()
-			idx_start = true_chunk[1]
-			idx_end = true_chunk[2]
-
-			entity_span = ' '.join(train_word_sequences[idx_start:idx_end]).lower()
-			# print('entity_span', entity_span)
-			if entity_span in Hard_entitySpan_inTrain:
-				continue
-			else:
-				Hard_entitySpan_inTrain[entity_span] = dict()
-				for tag in tags:
-					Hard_entitySpan_inTrain[entity_span][tag] = 0.0
-
-			# Determine if the same position in pred list giving a right prediction.
-			entity_span_new = ' ' + entity_span + ' '
-
-			# print('entity_span_new', entity_span_new)
-			# if '(' in entity_span_new and ')' not in entity_span_new:
-			# 	entity_span_new = entity_span_new.replace('(', '')
-			if '(' in entity_span_new or ')' in entity_span_new:
-				entity_span_new = entity_span_new.replace('(', '')
-				entity_span_new = entity_span_new.replace(')', '')
-			if '*' in entity_span_new:
-				entity_span_new = entity_span_new.replace('*', '')
-			if '+' in entity_span_new:
-				entity_span_new = entity_span_new.replace('+', '')
-			print('entity_span_new',entity_span_new)
-			entity_str_index = [m.start() for m in re.finditer(entity_span_new, word_sequences_train_str)]
-			# print('entity_str_index',entity_str_index)
-			print('count_find_span:',len(entity_str_index))
-			if len(entity_str_index) > 0:
-				label_list = []
-				# convert the string index into list index...
-				entity_list_index = []
-				for str_idx in entity_str_index:
-					entity_idx = len(word_sequences_train_str[0:str_idx].split())
-					entity_list_index.append(entity_idx)
-				entity_len = len(entity_span.split())
-
-				for idx in entity_list_index:
-					label_list_candidate = tag_sequences_train[idx:idx + entity_len]
-					for label in label_list_candidate:
-						if len(label) > 1:
-							label_list.append(label.split('-')[1].lower())
-						else:
-							label_list.append(label.lower())
-
-				label_norep = list(set(label_list))
-				for lab_norep in label_norep:
-					hard = float('%.3f' % (float(label_list.count(lab_norep)) / len(label_list)))
-					Hard_entitySpan_inTrain[entity_span][lab_norep] = hard
-
-		fwrite = open(fnwrite_GoldenEntityHard, 'wb')
-		pickle.dump(Hard_entitySpan_inTrain, fwrite)
-		fwrite.close()
-
-		return Hard_entitySpan_inTrain
-
-def getPreComputed_tCon(word_sequences_train,tag_sequences_train,fnwrite_TokenHard):
-	if os.path.exists(fnwrite_TokenHard):
-		print('load the hard dictionary of entity token in test set...')
-		fread = open(fnwrite_TokenHard, 'rb')
-		Hard_entityToken_inTrain = pickle.load(fread)
-		return Hard_entityToken_inTrain
-	else:
-		tags = []
-		train_count = Counter(tag_sequences_train)
-		for tag_train, times in train_count.most_common():
-			if len(tag_train) > 1:
-				tag = tag_train.split('-')[1].lower()
-				if tag not in tags:
-					tags.append(tag)
-		tags.append('o')
-
-		print('len(tags)', len(tags))
-
-		# build the word2tags dictionary.
-		word2tags_inTrain = dict()
-		for i in range(len(word_sequences_train)):
-			if len(tag_sequences_train[i]) > 1:
-				tag_new = tag_sequences_train[i].split('-')[1].lower().strip()
-			else:
-				tag_new = tag_sequences_train[i].lower().strip()
-
-			if word_sequences_train[i].lower() in word2tags_inTrain:
-				word2tags_inTrain[word_sequences_train[i].lower()].append(tag_new)
-			else:
-				word2tags_inTrain[word_sequences_train[i].lower()] = [tag_new]
-		print('the word list in train set is:', len(word2tags_inTrain))
-
-		Hard_entityToken_inTrain = dict()
-		for token,labels_list in word2tags_inTrain.items():
-			Hard_entityToken_inTrain[token] =dict()
-			for tag in tags:
-				Hard_entityToken_inTrain[token][tag] = 0.0
-			labels_norep = list(set(labels_list))
-			for lab_norep in labels_norep:
-				hard = float('%.3f' % (float(labels_list.count(lab_norep)) / len(labels_list)))
-				Hard_entityToken_inTrain[token][lab_norep] = hard
-
-
-
-		fwrite =open(fnwrite_TokenHard, 'wb')
-		pickle.dump(Hard_entityToken_inTrain,fwrite)
-		fwrite.close()
-
-
-		# print('len(Hard_entityToken_inTrain)',len(Hard_entityToken_inTrain))
-
-		# the num of no repeated entity token in test set is 8,548
-
-		return Hard_entityToken_inTrain
-
-
-def getPreComputed_eFre(train_word_sequences,tag_sequences_train,fnwrite_GoldenEntityHard):
-	if os.path.exists(fnwrite_GoldenEntityHard):
-		print('load the hard dictionary of entity span in test set...')
-		fread =open(fnwrite_GoldenEntityHard,'rb')
-		entitySpan_fami_inTrain = pickle.load(fread)
-		return entitySpan_fami_inTrain
-	else:
-		entitySpan_fami_inTrain = dict()
-		chunks_train = set(get_chunks(tag_sequences_train))
-		count_idx = 0
-		word_sequences_train_str = ' '.join(train_word_sequences).lower()
-		for true_chunk in chunks_train:
-			count_idx += 1
-			type = true_chunk[0].lower()
-			idx_start = true_chunk[1]
-			idx_end = true_chunk[2]
-
-			entity_span = ' '.join(train_word_sequences[idx_start:idx_end]).lower()
-			# print('entity_span', entity_span)
-			if entity_span in entitySpan_fami_inTrain:
-				continue
-			else:
-				entitySpan_fami_inTrain[entity_span] = []
-
-			# Determine if the same position in pred list giving a right prediction.
-			entity_span_new = ' ' + entity_span + ' '
-			if '(' in entity_span_new or ')' in entity_span_new:
-				entity_span_new = entity_span_new.replace('(', '')
-				entity_span_new = entity_span_new.replace(')', '')
-			if '*' in entity_span_new:
-				entity_span_new = entity_span_new.replace('*', '')
-
-			entity_str_index = [m.start() for m in re.finditer(entity_span_new, word_sequences_train_str)]
-
-			entitySpan_fami_inTrain[entity_span] = len(entity_str_index)
-
-		sorted_entitySpan_fami_inTrain = sorted(entitySpan_fami_inTrain.items(), key=lambda item: item[1],reverse =True)
-
-		entitySpan_freq_rate = {}
-		count_bigerThan_maxFreq = 0
-		max_freq = sorted_entitySpan_fami_inTrain[4][1]
-		for span, freq in entitySpan_fami_inTrain.items():
-			if freq <=max_freq:
-				entitySpan_freq_rate[span] = '%.3f' % (float(freq) / max_freq)
-			else:
-				count_bigerThan_maxFreq+=1
-		print('count_bigerThan_maxFreq',count_bigerThan_maxFreq)
-
-
-		fwrite = open(fnwrite_GoldenEntityHard, 'wb')
-		pickle.dump(entitySpan_freq_rate, fwrite)
-		fwrite.close()
-
-		return entitySpan_freq_rate
-
-def getPreComputed_tFre(word_sequences_train,tag_sequences_train,fnwrite_TokenHard):
-	if os.path.exists(fnwrite_TokenHard):
-		print('load the hard dictionary of entity token in test set...')
-		fread = open(fnwrite_TokenHard, 'rb')
-		entityToken_freq_rate = pickle.load(fread)
-		return entityToken_freq_rate
-	else:
-		# build the word2tags dictionary.
-
-		def count_entity_inTrain(word,word_sequences_train):
-			count =0
-			for wt in word_sequences_train:
-				if word.lower() ==wt.lower():
-					count+=1
-			return count
-
-		true_chunks = set(get_chunks(tag_sequences_train))
-
-		token_fami_inTrain = dict()
-		for token in word_sequences_train:
-			word = token.lower()
-			if word not in token_fami_inTrain:
-				count = count_entity_inTrain(word, word_sequences_train)
-				token_fami_inTrain[word] = count
-
-		sorted_token_fami_inTrain = sorted(token_fami_inTrain.items(), key=lambda item: item[1], reverse=True)
-
-		entityToken_freq_rate = {}
-		count_token_bigerThan_maxFreq = 0
-		max_freq = sorted_token_fami_inTrain[4][1]
-		# max_freq = 185
-		print('max_freq',max_freq)
-		for token, freq in token_fami_inTrain.items():
-			if freq <= max_freq:
-				entityToken_freq_rate[token] = '%.3f' % (float(freq) / max_freq)
-			else:
-				entityToken_freq_rate[token] = '1.0'
-				count_token_bigerThan_maxFreq += 1
-		print('count_token_bigerThan_maxFreq', count_token_bigerThan_maxFreq)
-
-
-		fwrite =open(fnwrite_TokenHard, 'wb')
-		pickle.dump(entityToken_freq_rate,fwrite)
-		fwrite.close()
-
-
-		# print('len(Hard_entityToken_inTrain)',len(Hard_entityToken_inTrain))
-
-		# the num of no repeated entity token in test set is 8,548
-
-		return entityToken_freq_rate
-
-def getPreComputed_oDen(word_sequences_train,tag_sequences_train,fnwrite_trainVocab):
-	if os.path.exists(fnwrite_trainVocab):
-		print('load the list that store the vocabuary of training set...')
-		fread = open(fnwrite_trainVocab, 'rb')
-		train_vocab = pickle.load(fread)
-		return train_vocab
-	else:
-		train_vocab = list(set(word_sequences_train))
-
-		fwrite = open(fnwrite_trainVocab, 'wb')
-		pickle.dump(train_vocab, fwrite)
-		fwrite.close()
-
-		return train_vocab
-
 
 
 #   getAspectValue(test_word_sequences, test_trueTag_sequences, test_word_sequences_sent, dict_precomputed_path)
 
 def getAspectValue(test_word_sequences, test_trueTag_sequences, test_word_sequences_sent,
-				   test_trueTag_sequences_sent, word_sequences_train, tag_sequences_train,
-				   dict_preComputed_path, dict_aspect_func):
+				   test_trueTag_sequences_sent, dict_preComputed_path, dict_aspect_func):
 
 
 	def getSententialValue(test_trueTag_sequences_sent, test_word_sequences_sent, dict_oov):
@@ -515,10 +249,8 @@ def getAspectValue(test_word_sequences, test_trueTag_sequences, test_word_sequen
 			fread = open(path, 'rb')
 			dict_preComputed_model[aspect] = pickle.load(fread)
 		else:
-			# raise ValueError("can not load hard dictionary" + aspect + "\t" + path)
-			# Pre-computing
-			preCompute_aspect = eval('getPreComputed_' + aspect)(word_sequences_train, tag_sequences_train, path)
-			dict_preComputed_model[aspect] = preCompute_aspect
+			raise ValueError("can not load hard dictionary" + aspect + "\t" + path)
+
 
 
 
@@ -676,10 +408,10 @@ def read_data_re(path_file):
 
 
 def tuple2str(triplet):
-	res = ""
-	for v in triplet:
-		res += str(v) + "_"
-	return res.rstrip("_")
+    res = ""
+    for v in triplet:
+        res += str(v) + "_"
+    return res.rstrip("_")
 
 
 
@@ -1769,9 +1501,9 @@ def bucketAttribute_SpecifiedBucketInterval(dict_span2attVal, intervals):
 			attval_tuple = (attval,)
 			if attval_tuple in intervals:
 				if attval_tuple not in dict_bucket2span.keys():
-					dict_bucket2span[attval_tuple] = entity
+				    dict_bucket2span[attval_tuple] = entity
 				else:
-					dict_bucket2span[attval_tuple] += entity
+				    dict_bucket2span[attval_tuple] += entity
 
 		for val in intervals:
 			if val not in dict_bucket2span.keys():
@@ -1880,8 +1612,8 @@ def new_metric(corpus_type, delimiter, column_info,
 
 
 
-	dict_span2aspectVal      = eval(task2funcName)(test_word_sequences, test_trueTag_sequences, test_word_sequences_sent, test_trueTag_sequences_sent, word_sequences_train, tag_sequences_train, dict_precomputed_path, dict_aspect_func)
-	dict_span2aspectVal_pred = eval(task2funcName)(test_word_sequences, test_predTag_sequences, test_word_sequences_sent, test_trueTag_sequences_sent, word_sequences_train, tag_sequences_train, dict_precomputed_path, dict_aspect_func)
+	dict_span2aspectVal      = eval(task2funcName)(test_word_sequences, test_trueTag_sequences, test_word_sequences_sent, test_trueTag_sequences_sent, dict_precomputed_path, dict_aspect_func)
+	dict_span2aspectVal_pred = eval(task2funcName)(test_word_sequences, test_predTag_sequences, test_word_sequences_sent, test_trueTag_sequences_sent, dict_precomputed_path, dict_aspect_func)
 
 
 
@@ -2215,7 +1947,7 @@ def printDict(dict_obj, info="dict"):
 			print("[" + str(k[0])+", " + str(k[1]) +"]" + "\t" + str(v[0]) + "\t" + str(v[1]))
 
 def extValue(cont, fr, to):
-	return cont.split(fr)[-1].split(to)[0]
+    return cont.split(fr)[-1].split(to)[0] 
 
 
 def loadConf(path_conf):
@@ -2319,7 +2051,7 @@ if __name__ == '__main__':
 	parser.add_argument('--path_fig', type=str, required=True, 
 						help="the type of the task")
 	parser.add_argument('--delimiter', type=str, required=True, 
-	  help="the type of the interval")
+      help="the type of the interval")
 
 	
 
@@ -2361,8 +2093,8 @@ if __name__ == '__main__':
 
 	# ---------------------------------------------------------------- -----------------------------------------
 	def ensureDir(f):
-		if not os.path.exists(f):
-			os.makedirs(f)
+	    if not os.path.exists(f):
+	        os.makedirs(f)
 
 	filename = '-'.join(model_names)
 	fn_write_buckect_value = 'analysis/'+args.path_fig+'/'+filename+'/bucket.range'
@@ -2385,8 +2117,8 @@ if __name__ == '__main__':
 		delimiter = args.delimiter
 		pos_column = 0
 
-		fn_train = path_data +task_type + "/" + corpus_type +'/data/train.txt'
-		fn_test  = path_data +task_type + "/" + corpus_type +'/data/test.txt'
+		fn_train = path_data +task_type + "/" + corpus_type +'/train.txt'
+		fn_test  = path_data +task_type + "/" + corpus_type +'/test.txt'
 
 
 		# get preComputed paths from conf file
@@ -2394,9 +2126,9 @@ if __name__ == '__main__':
 		for aspect, func in dict_aspect_func.items():
 			is_preComputed = func[2].lower()
 			if is_preComputed == "yes":
-				# dict_preComputed_path[aspect] = path_preComputed + "/" + task_type + '/metric/' + corpus_type + '_' + aspect + ".pkl"
-				dict_preComputed_path[
-					aspect] = args.path_preComputed + "/" + corpus_type + '_' + aspect + ".pkl"
+				dict_preComputed_path[aspect] = path_preComputed + "/" + task_type + '/metric/' + corpus_type + '_' + aspect + ".pkl"
+
+
 
 		if corpus_type == 'conll03':
 			column_no = -2
@@ -2502,10 +2234,10 @@ if __name__ == '__main__':
 
 			dict_bucket2f1,aspect_names = eval(dict_task2newMetric[task_type])(corpus_type,
 															delimiter,
-															column_info,
-															dict_task2func[task_type],
+													 		column_info,
+													 		dict_task2func[task_type],
 															dict_aspect_func,
-															dict_preComputed_path,
+													        dict_preComputed_path,
 															fn_train,
 															fn_test_results
 															 )

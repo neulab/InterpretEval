@@ -1,12 +1,11 @@
 # Task type
 task_type="ner"
-base_dir="./data/"
 
 # path of training data
-#path_data="./data/"
+path_data="./data/"
 
 # path of conf file
-path_aspect_conf=$base_dir$task_type"/conf."$task_type"-attributes"
+path_aspect_conf="conf.ner-attributes"
 
 
 # Part1: Dataset Name
@@ -17,19 +16,13 @@ datasets[1]="wnut16"
 model1="Flair"
 model2="ELMo"
 # Part3: Path of result files
-resfiles[0]=$base_dir$task_type"/conll03/results/connl03_CflairWglove_lstmCrf_9303.txt"
-resfiles[1]=$base_dir$task_type"/conll03/results/connl03_CelmoWglove_lstmCrf_9222.txt"
-resfiles[2]=$base_dir$task_type"/wnut16/results/wnut16_CflairWglove_lstmCrf_27707443_4596.txt"
-resfiles[3]=$base_dir$task_type"/wnut16/results/wnut16_CelmoWglove_lstmCrf_29275447_4533.txt"
-
-#resfiles[0]=$base_dir$task_type"/conll03test/results/connl03test_CflairWglove_lstmCrf_9303.txt"
-#resfiles[1]=$base_dir$task_type"/conll03test/results/connl03test_CelmoWglove_lstmCrf_9222.txt"
+resfiles[0]="./preComputed/ner/result/connl03_CflairWglove_lstmCrf_9303.txt"
+resfiles[1]="./preComputed/ner/result/connl03_CelmoWglove_lstmCrf_9222.txt"
+resfiles[2]="./preComputed/ner/result/wnut16_CflairWglove_lstmCrf_27707443_4596.txt"
+resfiles[3]="./preComputed/ner/result/wnut16_CelmoWglove_lstmCrf_29275447_4533.txt"
 
 
-
-
-
-path_preComputed=$base_dir$task_type"/preComputed"
+path_preComputed="./preComputed"
 path_fig=$task_type"-fig"
 path_output_tensorEval="output_tensorEval/"$task_type/$model1"-"$model2
 
@@ -41,7 +34,7 @@ delimiter="s"
 rm -fr $path_output_tensorEval/*
 echo "${datasets[*]}"
 python3 tensorEvaluation-ner.py \
-	--path_data $base_dir \
+	--path_data $path_data \
 	--task_type $task_type  \
 	--path_fig $path_fig \
 	--data_list "${datasets[*]}"\
@@ -98,6 +91,6 @@ python3 genHtml.py 	--data_list ${datasets[*]} \
 			> tEval-$task_type.html
 
 
-#sz tEval-$task_type.html
-#tar zcvf $path_fig.tar.gz $path_fig
-#sz $path_fig.tar.gz
+sz tEval-$task_type.html
+tar zcvf $path_fig.tar.gz $path_fig
+sz $path_fig.tar.gz

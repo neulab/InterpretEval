@@ -141,7 +141,7 @@ Take CoNLL-2003 datasets as an example.
 
 - Put the result-file of your model on this path: `data/ner/conll03/results/` (It contains three columns separated by space: token, true-tag, and predicted-tag). In order to carry out model diagnosis, two or more model result files must be included. You can also choose one of the result files provided by us as the reference model.
 
-- Name the train- and test-set (the dataset related to your result-file) as 'train.txt' and 'test.txt', and then put them on the path: `data/ner/conll03//data/`. You need to set which column is the token column and which column is the label column, and the separator in ``tensorEvaluation-ner.py''.
+- Name the train- and test-set (the dataset related to your result-file) as 'train.txt' and 'test.txt', and then put them on the path: `data/ner/conll03/data/`.
 
 - Set the `path_data` (path of training set), `datasets[-]` (dataset name), `model1` (the first model's name), `model2` (the second model's name), `resfiles[-]` (the paths of the results) in `run_task_ner.sh` according to your data.
 

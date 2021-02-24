@@ -1326,7 +1326,7 @@ def write_breakDown_performance(corpus_type, model_names, stdModels_metrics,metr
 			else:
 				string33=''
 				string4bkv=''
-				print('metric_result: ',metric_result)
+				# print('metric_result: ',metric_result)
 				xlabel=0
 				for range1, f1_score in metric_result.items():
 					tag=str(range1).split(',')[0][1:]

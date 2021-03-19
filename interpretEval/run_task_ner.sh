@@ -54,47 +54,53 @@ python3 tensorEvaluation-ner.py \
 
 		       
 
-#cd analysis
-#rm ./$path_fig/$model1"-"$model2/*.results
-#rm ./$path_fig/$model1"-"$model2/*.tex
-#for i in `ls ../$path_output_tensorEval`
-#do
-#	cat ../$path_output_tensorEval/$i | python3 genFig.py --path_fig $path_fig/$model1"-"$model2 --path_bucket_range ./$path_fig/$model1"-"$model2/bucket.range \
-#		--path_bucketInfo ./$path_fig/$model1"-"$model2/bucketInfo.pkl
-#done
+cd analysis
+if [ -f "./$path_fig/$model1"-"$model2/*.results" ]; then
+  rm ./$path_fig/$model1"-"$model2/*.results
+fi
+if [ -f "./$path_fig/$model1"-"$model2/*.tex" ]; then
+  rm ./$path_fig/$model1"-"$model2/*.tex
+fi
 
+
+for i in `ls ../$path_output_tensorEval`
+do
+	cat ../$path_output_tensorEval/$i | python3 genFig.py --path_fig $path_fig/$model1"-"$model2 --path_bucket_range ./$path_fig/$model1"-"$model2/bucket.range \
+		--path_bucketInfo ./$path_fig/$model1"-"$model2/bucketInfo.pkl
+done
+
+
+#-----------------------------------------------------
+
+#run pdflatex .tex
+cd $path_fig
+cd $model1"-"$model2
+find=".tex"
+replace=""
+
+for i in `ls *.tex`
+do
+	file=${i//$find/$replace}
+	echo $file
+	pdflatex $file.tex > log.latex
+	pdftoppm -png $file.pdf > $file.png
+done
 
 # -----------------------------------------------------
 
-# run pdflatex .tex
-#cd $path_fig
-#cd $model1"-"$model2
-#find=".tex"
-#replace=""
-#
-#for i in `ls *.tex`
-#do
-#	file=${i//$find/$replace}
-#	echo $file
-#	pdflatex $file.tex > log.latex
-#	pdftoppm -png $file.pdf > $file.png
-#done
+echo "begin to generate html ..."
 
-# -----------------------------------------------------
-
-#echo "begin to generate html ..."
-#
-#rm -fr *.aux *.log *.fls *.fdb_latexmk *.gz
-#cd ../../
-## cd analysis
-#echo "####################"
-#python3 genHtml.py 	--data_list ${datasets[*]} \
-#			--model_list $model1  $model2 \
-#			--path_fig_base ./$path_fig/$model1"-"$model2/ \
-#			--path_holistic_file ./$path_fig/$model1"-"$model2/holistic.results \
-#			--path_aspect_conf ../$path_aspect_conf \
-#			--path_bucket_range ./$path_fig/$model1"-"$model2/bucket.range \
-#			> tEval-$task_type.html
+rm -fr *.aux *.log *.fls *.fdb_latexmk *.gz
+cd ../../
+# cd analysis
+echo "####################"
+python3 genHtml.py 	--data_list ${datasets[*]} \
+			--model_list $model1  $model2 \
+			--path_fig_base ./$path_fig/$model1"-"$model2/ \
+			--path_holistic_file ./$path_fig/$model1"-"$model2/holistic.results \
+			--path_aspect_conf ../$path_aspect_conf \
+			--path_bucket_range ./$path_fig/$model1"-"$model2/bucket.range \
+			> tEval-$task_type.html
 
 
 #sz tEval-$task_type.html

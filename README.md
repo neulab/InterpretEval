@@ -154,7 +154,7 @@ Take CoNLL-2003 datasets as an example.
 ```
 
 #### 4.2.3 Generate the HTML code
-As the introduction in the section 4.2.2, we have generated the analysis results on the path `output_tensorEval/ner/your_model_name/`. Next, we will generate the HTM code base on the analysis results on the path `output_tensorEval/ner/your_model_name/`. In the `./run_task_ner.sh`, the codes after `#run pdflatex .tex` are use to generate the HTML code. Before run `./run_task_ner.sh`, you need to make sure that you have installed the `texlive` and `poppler`.
+As the introduction in the section 4.2.2, we have generated the analysis results on the path `output_tensorEval/ner/your_model_name/`. Next, we will generate the HTM code base on the analysis results. In the `./run_task_ner.sh`, the codes after `#run pdflatex .tex` are use to generate the HTML code. Before run `./run_task_ner.sh`, you need to make sure that you have installed the `texlive` and `poppler`.
 
 Other illustrations of the `./run_task_ner.sh` code are as follows:
 

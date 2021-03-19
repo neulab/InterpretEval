@@ -117,7 +117,7 @@ Give the Named Entity Recognition task as an example. Run the shell: `./run_task
 
 The shell scripts include the following three aspects:
 
-- `tensorEvaluation-ner.py` -> Calculate the dependent results of fine-grained analysis.
+- `tensorEvaluation-ner.py` -> Calculate the dependent results of the fine-grained analysis.
 
 - `genFig.py` -> Drawing figures to show the results of the fine-grained analysis.
 
@@ -154,15 +154,15 @@ Take CoNLL-2003 datasets as an example.
 ```
 
 #### 4.2.3 Generate the HTML code
-As the introduction in the section 4.2.2, we have generated the analysis results on the path `output_tensorEval/ner/your_model_name/`. Next, we will generate the HTM code base on the analysis results. In the `./run_task_ner.sh`, the codes after `#run pdflatex .tex` are use to generate the HTML code. Before run `./run_task_ner.sh`, you need to make sure that you have installed the `texlive` and `poppler`.
+As introduced in section 4.2.2, we have generated the analysis results on the path `output_tensorEval/ner/your_model_name/`. Next, we will generate the HTML code base on the analysis results. In the `./run_task_ner.sh`, the codes after `#run pdflatex .tex` are used to generate the HTML code. Before running `./run_task_ner.sh`, you need to make sure that you have installed the `texlive` and `poppler`.
 
 Other illustrations of the `./run_task_ner.sh` code are as follows:
 
-- `genFig.py` is used to generate the `latex` codes about the analysis charts (e.g. bar-chart, heatmap).
+- `genFig.py` generates the `latex` codes about the analysis charts (e.g. bar-chart, heatmap).
 
-- `pdflatex $file.tex` generate a figure with `.pdf` format based on the latex code.
+- `pdflatex $file.tex` generates a figure with `.pdf` format based on the latex code.
 
-- `pdftoppm -png $file.pdf` convert the figure with `.pdf` into the `.png` format.
+- `pdftoppm -png $file.pdf` converts the figure with `.pdf` into the `.png` format.
 
 - `genHtml.py` generates the HTML code that arranges the analysis figures and tables.
 
@@ -171,11 +171,11 @@ Other illustrations of the `./run_task_ner.sh` code are as follows:
 #### 4.2.4 Note: 
 - **More than two result files are required.**  Because comparative-diagnosis is to compare the strengths and weaknesses of the model architectures and pre-trained knowledge between two or more models, it is necessary to input as least two model results. 
 
-- **The result file must include three columns of words, true-tags, and predicted-tags, separated by space.** If your result file is not in the required format, you can modify the function `read_data()` in file `tensorEvaluation-ner.py` to adaptive to your format. 
+- **The result file must include three columns of words, true-tags, and predicted-tags, separated by space.** If your result file is not in the required format, you can modify the function `read_data()` in file `tensorEvaluation-ner.py` to adapt to your format. 
 
 
 
-Here are some generated results of preliminary evaluation systems: Named Entity Recognition (NER), Chinese Word Segmentation (CWS) and Part-of-Speech (POS).
+Here are some generated results of preliminary evaluation systems: Named Entity Recognition (NER), Chinese Word Segmentation (CWS), Part-of-Speech (POS), and Chunking.
 * [NER](http://pfliu.com/tensorEvaluation/tEval-ner.html)
 * [CWS](http://pfliu.com/tensorEvaluation/tEval-cws.html)
 * [POS](http://pfliu.com/tensorEvaluation/tEval-pos.html)

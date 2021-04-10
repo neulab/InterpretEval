@@ -27,7 +27,7 @@ Thanks [Ikuya Yamada](http://www.ikuya.net/index-en.html) and [Stefan Schweter](
 <br> 
 
 
-## 1. Motivated Questions
+## 1. Motivating Questions
 
 <img src="fig/ner.gif" width="550">
 

@@ -465,27 +465,27 @@ for block in all_cont.split("# "):
         holistic_res = [holistic_res_m1,holistic_res_m2]
 
     elif block.find("break-down performance") != -1:
-        metaInfo_m1 = extValue(block, model_name1+":\n", "\n\n")
-        metaInfo_m2 = extValue(block, model_name2+":\n", "\n\n")
+        metaInfo_m1 = extValue(block, model_name1+"\n", "\n\n")
+        metaInfo_m2 = extValue(block, model_name2+"\n", "\n\n")
         dict_breakdown_m1 = str2dict(metaInfo_m1)
         dict_breakdown_m2 = str2dict(metaInfo_m2)
 
 
     elif block.find("self-diagnosis") != -1:
-        metaInfo_m1 = extValue(block, model_name1+":\n", "\n\n")
-        metaInfo_m2 = extValue(block, model_name2+":\n", "\n\n")
+        metaInfo_m1 = extValue(block, model_name1+"\n", "\n\n")
+        metaInfo_m2 = extValue(block, model_name2+"\n", "\n\n")
         dict_self_diag_m1 = str2dict(metaInfo_m1)
         dict_self_diag_m2 = str2dict(metaInfo_m2)
 
     elif block.find("aided-diagnosis line-chart") != -1:
-        metaInfo_m1_2 = extValue(block, model_name1+"_"+model_name2+ ":\n", "\n\n")
+        metaInfo_m1_2 = extValue(block, model_name1+"_"+model_name2+ "\n", "\n\n")
         dict_aided_diag_hist_m1_2 = str2dict(metaInfo_m1_2)
 
 
 
 
     elif block.find("aided-diagnosis heatmap") != -1:
-        metaInfo_m1_2 = extValue(block, model_name1+"_"+model_name2+ ":\n", "\n\n")
+        metaInfo_m1_2 = extValue(block, model_name1+"_"+model_name2+ "\n", "\n\n")
         dict_aided_diag_heatmap_m1_2 = str2dict(metaInfo_m1_2)
 
 
